@@ -16,7 +16,7 @@ spec:
     spec:
       containers:
       - name: helloworld-app-container
-        image: "quay.io/geoallen/quarkus:latest"
+        image: "quay.io/geoallen/quarkus:2.0"
         imagePullPolicy: IfNotPresent
         ports:
           - containerPort: 8080
