@@ -16,13 +16,13 @@ spec:
     spec:
       containers:
       - name: helloworld-app-container
-        image: "quay.io/fxiang1/helloworld:0.0.1"
+        image: "quay.io/geoallen/quarkus:latest"
         imagePullPolicy: IfNotPresent
         ports:
-          - containerPort: 3002
+          - containerPort: 8080
         env:
           - name: "PORT"
-            value: "3002"
+            value: "8080"
         resources:
           limits:
             cpu: 200m
