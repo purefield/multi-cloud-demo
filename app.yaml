@@ -1,0 +1,62 @@
+apiVersion: v1                      
+kind: Namespace
+metadata:
+  name: gitlab
+---
+apiVersion: app.k8s.io/v1beta1
+kind: Application
+metadata:
+  name: hello
+  namespace: gitlab
+spec:
+  componentKinds:
+  - group: apps.open-cluster-management.io
+    kind: Subscription
+  descriptor: {}
+  selector:
+    matchExpressions:
+      - key: app
+        operator: In
+        values: 
+          - hello
+---
+apiVersion: apps.open-cluster-management.io/v1
+kind: Channel
+metadata:
+  annotations:
+    apps.open-cluster-management.io/reconcile-rate: medium
+  name: hello-channel
+  namespace: gitlab
+spec:
+  type: Git
+  pathname: 'https://gitlab.consulting.redhat.com/schimpfoessl/multi-cloud.git'
+---
+apiVersion: apps.open-cluster-management.io/v1
+kind: Subscription
+metadata:
+  annotations:
+    apps.open-cluster-management.io/git-path: app
+    apps.open-cluster-management.io/git-branch: main
+    apps.open-cluster-management.io/reconcile-option: merge
+  labels:
+    app: hello
+  name: hello-subscription
+  namespace: gitlab
+spec:
+  channel: gitlab/hello-channel
+  placement:
+    placementRef:
+      kind: PlacementRule
+      name: hello-placement
+---
+apiVersion: apps.open-cluster-management.io/v1
+kind: PlacementRule
+metadata:
+  labels:
+    app: hello
+  name: hello-placement
+  namespace: gitlab
+spec:
+  clusterSelector:
+    matchLabels:
+      'app-env-hello': 'development'
