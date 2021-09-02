@@ -4,7 +4,7 @@ metadata:
  name: gitlab-runner
  namespace: gitlab
 spec:
- gitlabUrl: https://gitlab.consulting.redhat.com/
+ gitlabUrl: https://gitlab.com/
  buildImage: alpine
  token: gitlab-runner-secret
  tags: openshift
