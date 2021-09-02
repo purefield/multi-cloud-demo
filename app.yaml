@@ -30,6 +30,8 @@ metadata:
 spec:
   type: Git
   pathname: 'https://gitlab.consulting.redhat.com/schimpfoessl/multi-cloud.git'
+  secretRef:
+    name: multi-cloud-auth
 ---
 apiVersion: apps.open-cluster-management.io/v1
 kind: Subscription
