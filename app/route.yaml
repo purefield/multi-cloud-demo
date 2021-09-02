@@ -10,5 +10,5 @@ spec:
     name: helloworld-app-svc
     weight: 100
   port:
-    targetPort: 3002
+    targetPort: 8080
   wildcardPolicy: None
