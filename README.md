@@ -1,9 +1,10 @@
 Gitlab integration with ACM
 
-Edit secret.yaml
-git update-index --assume-unchanged secret.yaml
+Edit secrets.yaml
+git update-index --assume-unchanged secrets.yaml
 
-oc create -f multi-cloud.yaml -f secret.yaml --save-config
+oc create -f secrets.yaml --save-config
+oc create -f multi-cloud/app.yaml --save-config
 # GitLab CI Demo
 
 Demonstrate how to build/deploy a container to OpenShift via GitLab Auto DevOps

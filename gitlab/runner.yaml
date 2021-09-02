@@ -1,0 +1,9 @@
+apiVersion: apps.gitlab.com/v1beta2
+kind: Runner
+metadata:
+ name: gitlab-runner
+spec:
+ gitlabUrl: https://gitlab.consulting.redhat.com/
+ buildImage: alpine
+ token: gitlab-runner-secret
+ tags: openshift
