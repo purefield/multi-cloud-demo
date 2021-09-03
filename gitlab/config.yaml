@@ -6,8 +6,9 @@ metadata:
 data:
   config.toml: |
     [[runners]]
-      [runners.docker]
-        tls_verify = false
+      executor = "kubernetes"
+      namespace = "gitlab"
+      privileged = true
       [runners.kubernetes]
         [runners.kubernetes.volumes]
           [[runners.kubernetes.volumes.empty_dir]]
