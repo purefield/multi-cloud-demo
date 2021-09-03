@@ -16,7 +16,7 @@ spec:
     spec:
       containers:
       - name: helloworld-app-container
-        image: "quay.io/geoallen/quarkus:1.0"
+        image: "registry.gitlab.com/gitlab-com/alliances/ibm-red-hat/sandbox/customer-k/multi-cloud-demo/main"
         imagePullPolicy: IfNotPresent
         ports:
           - containerPort: 8080
