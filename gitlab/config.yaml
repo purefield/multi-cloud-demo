@@ -6,9 +6,7 @@ metadata:
 data:
   config.toml: |
     [[runners]]
-      executor = "kubernetes"
       [runners.kubernetes]
-        privileged = false
         [runners.kubernetes.volumes]
           [[runners.kubernetes.volumes.empty_dir]]
             name = "empty-dir"
