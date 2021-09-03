@@ -9,7 +9,11 @@ data:
       [runners.kubernetes]
         [runners.kubernetes.volumes]
           [[runners.kubernetes.volumes.empty_dir]]
-            name = "empty-dir"
+            name = "docker-home"
             mount_path = "/.docker"
+            medium = "Memory"
+          [[runners.kubernetes.volumes.empty_dir]]
+            name = "basher-home"
+            mount_path = "/.basher"
             medium = "Memory"
 
