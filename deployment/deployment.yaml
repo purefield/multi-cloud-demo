@@ -14,9 +14,18 @@ spec:
       labels:
         app: helloworld-app
     spec:
+      volumes:
+      - name: token-volume
+        secret:
+          secretName: gitlab-access-token
       containers:
       - name: helloworld-app-container
         image: "registry.gitlab.com/gitlab-com/alliances/ibm-red-hat/sandbox/customer-k/multi-cloud-demo/main"
+        args:
+        - --token-file=/config/token
+        volumeMounts:
+        - name: token-volume
+          mountPath: /config
         imagePullPolicy: IfNotPresent
         ports:
           - containerPort: 8080

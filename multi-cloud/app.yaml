@@ -31,7 +31,7 @@ spec:
   type: Git
   pathname: 'https://gitlab.com/gitlab-com/alliances/ibm-red-hat/sandbox/customer-k/multi-cloud-demo.git'
   secretRef:
-    name: multi-cloud-auth
+    name: gitlab-access-token
 ---
 apiVersion: apps.open-cluster-management.io/v1
 kind: Subscription
