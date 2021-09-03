@@ -6,7 +6,6 @@ metadata:
 data:
   config.toml: |
     [[runners]]
-      executor = "kubernetes"
       namespace = "gitlab"
       privileged = true
       [runners.kubernetes]
