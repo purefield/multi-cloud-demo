@@ -8,6 +8,7 @@ data:
     [[runners]]
       [runners.docker]
         tls_verify = false
+        privileged = true
       [runners.kubernetes]
         [runners.kubernetes.volumes]
           [[runners.kubernetes.volumes.empty_dir]]
