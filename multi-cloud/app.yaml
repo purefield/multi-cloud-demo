@@ -60,5 +60,9 @@ metadata:
   namespace: gitlab
 spec:
   clusterSelector:
-    matchLabels:
-      'app-env-hello': 'development'
+    matchExpression:
+      - key: app-env-hello
+        operator: In
+        values: 
+          - development
+          - production
