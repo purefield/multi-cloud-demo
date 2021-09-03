@@ -6,6 +6,8 @@ metadata:
 data:
   config.toml: |
     [[runners]]
+      [runners.docker]
+        tls_verify = false
       [runners.kubernetes]
         [runners.kubernetes.volumes]
           [[runners.kubernetes.volumes.empty_dir]]
