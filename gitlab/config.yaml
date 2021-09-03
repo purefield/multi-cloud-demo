@@ -1,0 +1,17 @@
+kind: ConfigMap
+apiVersion: v1
+metadata:
+  name: custom-config-toml
+  namespace: gitlab
+data:
+  config.toml: |
+    [[runners]]
+      executor = "kubernetes"
+      [runners.kubernetes]
+        privileged = false
+        [runners.kubernetes.volumes]
+          [[runners.kubernetes.volumes.empty_dir]]
+            name = "empty-dir"
+            mount_path = "/.docker"
+            medium = "Memory"
+

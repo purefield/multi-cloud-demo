@@ -29,7 +29,7 @@ metadata:
   namespace: gitlab
 spec:
   type: Git
-  pathname: 'https://gitlab.consulting.redhat.com/schimpfoessl/multi-cloud.git'
+  pathname: 'https://gitlab.com/red-hat-mc/multi-cloud-demo.git'
   secretRef:
     name: multi-cloud-auth
 ---
