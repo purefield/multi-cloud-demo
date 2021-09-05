@@ -3,9 +3,8 @@ Gitlab integration with ACM
 Edit secrets.yaml
 git update-index --assume-unchanged secrets.yaml
 
-Create Access Token with api role
-Create Secret and link to default account on each cluster
 ```sh
+Create Access Token with api role
 kubectl create secret docker-registry gitlab-registry-auth \
         --docker-server=registry.gitlab.com \
         --docker-username=openshift-token\
@@ -16,8 +15,8 @@ kubectl create secret docker-registry gitlab-repo-auth \
         --docker-username=openshift-token\
         --docker-password=token\
         --docker-email=user@domain.tld
-oc secrets link default gitlab-registry-auth -n multi-cloud --for=pull
-oc secrets link default gitlab-repo-auth     -n multi-cloud --for=pull
+oc secrets link default gitlab-registry-auth --for=pull
+oc secrets link default gitlab-repo-auth --for=pull
 ```
 ```sh
 oc create -f multi-cloud/app.yaml -f secrets.yaml --save-config
