@@ -2,6 +2,7 @@ kind: Route
 apiVersion: route.openshift.io/v1
 metadata:
   name: helloworld-app-route
+  namepsace: hello
   labels:
     app: helloworld-app
 spec:
