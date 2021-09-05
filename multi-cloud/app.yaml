@@ -1,13 +1,13 @@
 apiVersion: v1                      
 kind: Namespace
 metadata:
-  name: multi-cluster
+  name: multi-cloud
 ---
 apiVersion: app.k8s.io/v1beta1
 kind: Application
 metadata:
   name: hello
-  namespace: multi-cluster
+  namespace: multi-cloud
 spec:
   componentKinds:
   - group: apps.open-cluster-management.io
@@ -26,7 +26,7 @@ metadata:
   annotations:
     apps.open-cluster-management.io/reconcile-rate: medium
   name: hello-channel
-  namespace: multi-cluster
+  namespace: multi-cloud
 spec:
   type: Git
   pathname: 'https://gitlab.com/gitlab-com/alliances/ibm-red-hat/sandbox/customer-k/multi-cloud-demo.git'
@@ -43,9 +43,9 @@ metadata:
   labels:
     app: hello
   name: hello-subscription
-  namespace: multi-cluster
+  namespace: multi-cloud
 spec:
-  channel: multi-cluster/hello-channel
+  channel: multi-cloud/hello-channel
   placement:
     placementRef:
       kind: PlacementRule
@@ -57,7 +57,7 @@ metadata:
   labels:
     app: hello
   name: hello-placement
-  namespace: multi-cluster
+  namespace: multi-cloud
 spec:
   clusterSelector:
     matchExpression:
