@@ -20,7 +20,7 @@ spec:
       containers:
       - name: helloworld-app-container
         image: "registry.gitlab.com/gitlab-com/alliances/ibm-red-hat/sandbox/customer-k/multi-cloud-demo/main"
-        imagePullPolicy: IfNotPresent
+        imagePullPolicy: Always
         ports:
           - containerPort: 8080
         env:

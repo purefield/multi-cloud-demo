@@ -19,10 +19,8 @@ oc secrets link default gitlab-registry-auth --for=pull
 oc secrets link default gitlab-repo-auth --for=pull
 ```
 ```sh
-oc create -f multi-cloud/app.yaml --save-config
-```
-```sh
-oc create -f secrets.yaml --save-config
+oc create -f multi-cloud/app.yaml -f secrets.yaml --save-config
+oc secrets link default gitlab-access-token --for=pull -n multi-cloud
 ```
 ```sh
 oc create -f gitlab/config.yaml -f gitlab/runner.yaml --save-config
