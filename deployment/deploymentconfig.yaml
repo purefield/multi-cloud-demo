@@ -15,8 +15,8 @@ spec:
   template:
     metadata:
       labels:
-        app: photo-album
-        deploymentconfig: photo-album
+        app: helloworld
+        deploymentconfig: helloworl-app-deploy
     spec:
       imagePullSecrets:
       - name: gitlab-registry-auth
