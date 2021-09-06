@@ -1,7 +1,7 @@
+. /srv/redhat/demo/acm-pacman/login.sh
 for clusterId in 1 2 3; do
   oc-login $clusterId
   secret=$(oc get secret gitlab-registry-auth -n multi-cloud 2>/dev/null | grep gitlab-registry-auth)
-  echo ">>$secret<<"
   if [ "$secret" != '' ]; then
     oc replace -f secrets.yaml 
   else
