@@ -5,7 +5,7 @@ metadata:
   namespace: multi-cloud
 spec:
   lookupPolicy:
-    local: false
+    local: true
   tags:
   - name: "production"
     from:
