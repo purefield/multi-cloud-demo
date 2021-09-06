@@ -33,3 +33,13 @@ spec:
           request:
             cpu: 50m
             memory: 64Mi
+      triggers:
+      - type: ConfigChange
+      - imageChangeParams:
+          automatic: true
+          containerNames:
+          - helloworld-app-container
+          from:
+            kind: ImageStreamTag
+            name: registry.gitlab.com/gitlab-com/alliances/ibm-red-hat/sandbox/customer-k/multi-cloud-demo/main
+        type: ImageChange
