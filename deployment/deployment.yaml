@@ -1,29 +1,22 @@
 apiVersion: apps/v1
-kind: Deployment
+kind: DeploymentConfig
 metadata:
   name: helloworld-app-deploy
   namespace: multi-cloud
   labels:
     app: helloworld-app
 spec:
-  selector:
-    matchLabels:
-      app: helloworld-app
   replicas: 1
+  selector:
+    app: helloworld-app
+    deploymentconfig: helloworld-app-deploy
+  strategy:
+    resources: {}
   template:
-    triggers:
-    - type: ConfigChange
-    - imageChangeParams:
-        automatic: true
-        containerNames:
-        - helloworld-app-container
-        from:
-          kind: ImageStreamTag
-          name: helloworld:production
-      type: ImageChange
     metadata:
       labels:
-        app: helloworld-app
+        app: photo-album
+        deploymentconfig: photo-album
     spec:
       imagePullSecrets:
       - name: gitlab-registry-auth
@@ -43,3 +36,14 @@ spec:
           request:
             cpu: 50m
             memory: 64Mi
+  test: false
+  triggers:
+  - type: ConfigChange
+  - imageChangeParams:
+      automatic: true
+      containerNames:
+      - helloworld-app-container
+      from:
+        kind: ImageStreamTag
+        name: helloworld:production
+    type: ImageChange
