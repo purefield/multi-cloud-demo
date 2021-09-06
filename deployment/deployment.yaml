@@ -19,7 +19,7 @@ spec:
         - helloworld-app-container
         from:
           kind: ImageStreamTag
-          name: helloworld:latest
+          name: helloworld:production
       type: ImageChange
     metadata:
       labels:
