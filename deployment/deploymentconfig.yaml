@@ -39,11 +39,12 @@ spec:
   test: false
   triggers:
   - type: ConfigChange
-  - imageChangeParams:
+  - type: ImageChange
+    imageChangeParams:
       automatic: true
       containerNames:
       - helloworld-app-production
       from:
         kind: ImageStreamTag
+        namespace: multi-cloud
         name: helloworld-imagestream:production
-    type: ImageChange
