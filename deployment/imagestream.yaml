@@ -5,17 +5,17 @@ metadata:
   namespace: multi-cloud
 spec:
   lookupPolicy:
-    local: true
+    local: false
   tags:
   - name: "development"
     from:
       kind: DockerImage
       name: "registry.gitlab.com/gitlab-com/alliances/ibm-red-hat/sandbox/customer-k/multi-cloud-demo/development"
     referencePolicy:
-      type: Source
+      type: Local
   - name: "production"
     from:
       kind: DockerImage
       name: "registry.gitlab.com/gitlab-com/alliances/ibm-red-hat/sandbox/customer-k/multi-cloud-demo/main"
     referencePolicy:
-      type: Source
+      type: Local
