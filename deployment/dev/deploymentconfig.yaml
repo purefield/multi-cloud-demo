@@ -1,0 +1,49 @@
+apiVersion: apps.openshift.io/v1
+kind: DeploymentConfig
+metadata:
+  name: helloworld-dev-dc
+  namespace: multi-cloud
+  labels:
+    app: helloworld-dev-app
+spec:
+  replicas: 1
+  selector:
+    app: helloworld-dev-app
+    deploymentconfig: helloworld-dev-dc
+  strategy:
+    resources: {}
+  template:
+    metadata:
+      labels:
+        app: helloworld-dev-app
+        deploymentconfig: helloworld-dev-dc
+    spec:
+      imagePullSecrets:
+      - name: gitlab-registry-auth
+      containers:
+      - name: helloworld-dev-app
+        image: helloworld-imagestream:development
+        imagePullPolicy: Always
+        ports:
+          - containerPort: 8080
+        env:
+          - name: "PORT"
+            value: "8080"
+        resources:
+          limits:
+            cpu: 200m
+            memory: 256Mi
+          request:
+            cpu: 50m
+            memory: 64Mi
+  test: false
+  triggers:
+  - type: ImageChange
+    imageChangeParams:
+      automatic: true
+      containerNames:
+      - helloworld-dev-app
+      from:
+        kind: ImageStreamTag
+        namespace: multi-cloud
+        name: helloworld-imagestream:development

@@ -1,27 +1,27 @@
 apiVersion: apps.openshift.io/v1
 kind: DeploymentConfig
 metadata:
-  name: helloworld-dc-production
+  name: helloworld-prod-dc
   namespace: multi-cloud
   labels:
-    app: helloworld-app
+    app: helloworld-prod-app
 spec:
   replicas: 1
   selector:
-    app: helloworld-app
-    deploymentconfig: helloworld-dc-production
+    app: helloworld-prod-app
+    deploymentconfig: helloworld-prod-dc
   strategy:
     resources: {}
   template:
     metadata:
       labels:
-        app: helloworld-app
-        deploymentconfig: helloworld-dc-production
+        app: helloworld-prod-app
+        deploymentconfig: helloworld-prod-dc
     spec:
       imagePullSecrets:
       - name: gitlab-registry-auth
       containers:
-      - name: helloworld-app-production
+      - name: helloworld-prod-app
         image: helloworld-imagestream:production
         imagePullPolicy: Always
         ports:
@@ -42,7 +42,7 @@ spec:
     imageChangeParams:
       automatic: true
       containerNames:
-      - helloworld-app-production
+      - helloworld-prod-app
       from:
         kind: ImageStreamTag
         namespace: multi-cloud

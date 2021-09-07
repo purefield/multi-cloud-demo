@@ -1,14 +1,14 @@
 kind: Route
 apiVersion: route.openshift.io/v1
 metadata:
-  name: helloworld-app-route
+  name: helloworld-prod-app-route
   namespace: multi-cloud
   labels:
-    app: helloworld-app
+    app: helloworld-prod-app
 spec:
   to:
     kind: Service
-    name: helloworld-app-svc
+    name: helloworld-prod-app-svc
     weight: 100
   port:
     targetPort: 8080
