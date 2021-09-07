@@ -1,0 +1,15 @@
+apiVersion: v1
+kind: Service
+metadata:
+  name: helloworld-dev-app-svc
+  namespace: multi-cloud
+  labels:
+    app: helloworld-dev-app
+spec:
+  type: NodePort
+  ports:
+    - port: 8080
+      targetPort: 8080
+      protocol: TCP
+  selector:
+    app: helloworld-dev-app

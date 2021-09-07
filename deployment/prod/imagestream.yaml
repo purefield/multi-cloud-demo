@@ -1,0 +1,23 @@
+apiVersion: image.openshift.io/v1
+kind: ImageStream
+metadata:
+  name: helloworld-imagestream
+  namespace: multi-cloud
+spec:
+  lookupPolicy:
+    local: true
+  tags:
+  - name: "development"
+    from:
+      kind: DockerImage
+      name: "registry.gitlab.com/gitlab-com/alliances/ibm-red-hat/sandbox/customer-k/multi-cloud-demo/development:latest"
+    importPolicy: {scheduled: true}
+    referencePolicy:
+      type: Source
+  - name: "production"
+    from:
+      kind: DockerImage
+      name: "registry.gitlab.com/gitlab-com/alliances/ibm-red-hat/sandbox/customer-k/multi-cloud-demo/main:latest"
+    importPolicy: {scheduled: true}
+    referencePolicy:
+      type: Source

@@ -15,8 +15,8 @@ kubectl create secret docker-registry gitlab-repo-auth \
         --docker-username=openshift-token\
         --docker-password=token\
         --docker-email=user@domain.tld
-oc secrets link default gitlab-registry-auth --for=pull
-oc secrets link default gitlab-repo-auth --for=pull
+oc secrets link default gitlab-registry-auth --for=pull -n multi-cloud
+oc secrets link default gitlab-repo-auth     --for=pull -n multi-cloud
 ```
 ```sh
 oc create -f multi-cloud/app.yaml -f secrets.yaml --save-config
