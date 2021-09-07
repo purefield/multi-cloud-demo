@@ -12,7 +12,7 @@ const ENV      = process.env.ENVIRONMENT || 'unknown';
 // App
 const app = express();
 app.get('/', (req, res) => {
-  res.send(`Hello World! v${VERSION} in ${ENV} on $(HOSTNAME)\n`);
+  res.send(`Hello World! v${VERSION} in ${ENV} on ${HOSTNAME}\n`);
 });
 
 app.listen(PORT, HOST => 
