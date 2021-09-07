@@ -5,7 +5,7 @@ const express = require('express');
 // Constants
 const PORT = process.env.PORT || 8080;
 const HOST = '0.0.0.0';
-const VERSION = 6
+const VERSION = 1
 const ENV  = process.env.ENVIRONMENT || 'unknown';
 
 // App
