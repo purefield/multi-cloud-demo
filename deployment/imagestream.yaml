@@ -10,12 +10,12 @@ spec:
   - name: "development"
     from:
       kind: DockerImage
-      name: "registry.gitlab.com/gitlab-com/alliances/ibm-red-hat/sandbox/customer-k/multi-cloud-demo/development"
+      name: "registry.gitlab.com/gitlab-com/alliances/ibm-red-hat/sandbox/customer-k/multi-cloud-demo/development:latest"
     referencePolicy:
       type: Source
   - name: "production"
     from:
       kind: DockerImage
-      name: "registry.gitlab.com/gitlab-com/alliances/ibm-red-hat/sandbox/customer-k/multi-cloud-demo/main"
+      name: "registry.gitlab.com/gitlab-com/alliances/ibm-red-hat/sandbox/customer-k/multi-cloud-demo/main:latest"
     referencePolicy:
       type: Source
