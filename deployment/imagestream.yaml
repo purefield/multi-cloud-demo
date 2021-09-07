@@ -5,9 +5,12 @@ metadata:
   namespace: multi-cloud
 spec:
   lookupPolicy:
-    local: false
+    local: true
+  importPolicy: 
+    scheduled: true
   tags:
   - name: "development"
+    importPolicy: {scheduled: true}
     from:
       kind: DockerImage
       name: "registry.gitlab.com/gitlab-com/alliances/ibm-red-hat/sandbox/customer-k/multi-cloud-demo/development:latest"
