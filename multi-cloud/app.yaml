@@ -60,11 +60,8 @@ metadata:
   namespace: multi-cloud
 spec:
   clusterSelector:
-    matchExpression:
-      - key: app-env-hello
-        operator: In
-        values: 
-          - development
+    matchLabels:
+      'app-env-hello': 'development'
 ---
 apiVersion: apps.open-cluster-management.io/v1
 kind: Subscription
@@ -93,8 +90,5 @@ metadata:
   namespace: multi-cloud
 spec:
   clusterSelector:
-    matchExpression:
-      - key: app-env-hello
-        operator: In
-        values: 
-          - production
+    matchLabels:
+      'app-env-hello': 'production'
