@@ -1,7 +1,7 @@
 apiVersion: image.openshift.io/v1
 kind: ImageStream
 metadata:
-  name: helloworld
+  name: helloworld-imagestream
   namespace: multi-cloud
 spec:
   lookupPolicy:
