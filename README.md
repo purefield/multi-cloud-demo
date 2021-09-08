@@ -23,5 +23,6 @@ oc create -f multi-cloud/app.yaml -f secrets.yaml --save-config
 oc secrets link default gitlab-access-token --for=pull -n multi-cloud
 ```
 ```sh
-oc create -f gitlab/config.yaml -f gitlab/runner.yaml --save-config
+cd deployment
+./setup.sh
 ```
