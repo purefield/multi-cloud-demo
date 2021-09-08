@@ -24,7 +24,7 @@ apiVersion: apps.open-cluster-management.io/v1
 kind: Channel
 metadata:
   annotations:
-    apps.open-cluster-management.io/reconcile-rate: off
+    apps.open-cluster-management.io/reconcile-rate: high
   name: hello-channel
   namespace: multi-cloud
 spec:
@@ -39,6 +39,7 @@ metadata:
   annotations:
     apps.open-cluster-management.io/git-path: deployment/dev
     apps.open-cluster-management.io/git-branch: main
+    apps.open-cluster-management.io/reconcile-rate: "off"
     apps.open-cluster-management.io/reconcile-option: merge
   labels:
     app: hello
@@ -69,6 +70,7 @@ metadata:
   annotations:
     apps.open-cluster-management.io/git-path: deployment/prod
     apps.open-cluster-management.io/git-branch: main
+    apps.open-cluster-management.io/reconcile-rate: "off"
     apps.open-cluster-management.io/reconcile-option: merge
   labels:
     app: hello
