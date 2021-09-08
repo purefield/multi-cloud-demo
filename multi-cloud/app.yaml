@@ -24,7 +24,7 @@ apiVersion: apps.open-cluster-management.io/v1
 kind: Channel
 metadata:
   annotations:
-    apps.open-cluster-management.io/reconcile-rate: high
+    apps.open-cluster-management.io/reconcile-rate: off
   name: hello-channel
   namespace: multi-cloud
 spec:
