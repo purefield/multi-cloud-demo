@@ -153,4 +153,3 @@ spec:
   clusterSelector:
     matchExpressions:
       []  # selects all clusters if not specified
-
