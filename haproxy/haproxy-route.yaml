@@ -1,0 +1,13 @@
+apiVersion: route.openshift.io/v1
+kind: Route
+metadata:
+  name: multi-cloud-lb
+  namespace: multi-cloud-lb
+  labels:
+    app.kubernetes.io/name: multi-cloud-lb
+spec:
+  path: "/"
+  to:
+    kind: Service
+    name: multi-cloud-lb
+  host: multi-cloud.kcdc.rhlabs.io
