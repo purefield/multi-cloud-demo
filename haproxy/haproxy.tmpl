@@ -62,6 +62,11 @@ defaults
 #---------------------------------------------------------------------
 frontend  main
     bind *:8080
+    acl ACL_DEV hdr(host) -i INGRESS_SUBDOMAIN.dev.INGRESS_BASE
+    use_backend dev_app if ACL_DEV
+
+    acl ACL_PROD hdr(host) -i INGRESS_SUBDOMAIN.INGRESS_BASE
+    use_backend app if ACL_PROD
 
     default_backend             app
 
