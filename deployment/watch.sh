@@ -1,2 +1,1 @@
-watch curl -s https://multi-cloud.kcdc.rhlabs.io https://multi-cloud.dev.kcdc.rhlabs.io  \
-  $(. /srv/login.sh && for i in 1 2 3; do echo -n "http://hello-multi-cloud.apps.${clusters[$i]} "; done)
+watch "echo '* Global Load Balancer'; echo ' - Production'; curl -ks https://multi-cloud.kcdc.rhlabs.io; echo ' - Development'; curl -sk https://multi-cloud.dev.kcdc.rhlabs.io; echo; echo; echo '* Individual Clusters'; curl -sk $(. /srv/login.sh && for i in 1 2 3; do echo -n "http://hello-multi-cloud.apps.${clusters[$i]} "; done)"
