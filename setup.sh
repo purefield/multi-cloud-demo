@@ -46,8 +46,8 @@ HELLO_CLUSTER3=hello-multi-cloud.$(oc get ingresses.config.openshift.io cluster 
 # Copy the sample configmap
 rm -f haproxy; cp haproxy.tmpl haproxy
 # Update the HAProxy configuration
-sed -i "/INGRESS_BASE/${HELLO_INGRESS_BASE}/g" haproxy
-sed -i "/INGRESS_SUBDOMAIN/${HELLO_INGRESS_SUBDOMAIN}/g" haproxy
+sed -i "s/INGRESS_BASE/${HELLO_INGRESS_BASE}/g" haproxy
+sed -i "s/INGRESS_SUBDOMAIN/${HELLO_INGRESS_SUBDOMAIN}/g" haproxy
 # Replace the value with the variable `HELLO_CLUSTER1`
 sed -i "s/<server1_name> <server1_hello_route>:<route_port>/cluster1 ${HELLO_CLUSTER1}:80/g" haproxy
 # Replace the value with the variable `HELLO_CLUSTER2`
