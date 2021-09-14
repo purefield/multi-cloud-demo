@@ -63,10 +63,10 @@ defaults
 frontend  main
     bind *:8080
 
-    acl ACL_hello_dev hdr(host) -i kcdc.rhlabs.io.dev.multi-cloud
+    acl ACL_hello_dev hdr(host) -i multi-cloud.dev.kcdc.rhlabs.io
     use_backend dev_app if ACL_hello_dev
 
-    acl ACL_hello hdr(host) -i kcdc.rhlabs.io.multi-cloud
+    acl ACL_hello hdr(host) -i multi-cloud.kcdc.rhlabs.io
     use_backend app if ACL_hello
 
     default_backend             app
@@ -76,8 +76,8 @@ frontend  main
 #---------------------------------------------------------------------
 backend app
     balance roundrobin
-    option httpchk GET / HTTP/1.1\r\nHost:\ kcdc.rhlabs.io.multi-cloud
-    http-request set-header Host kcdc.rhlabs.io.multi-cloud
+    option httpchk GET / HTTP/1.1\r\nHost:\ multi-cloud.kcdc.rhlabs.io
+    http-request set-header Host multi-cloud.kcdc.rhlabs.io
     mode http 
         server cluster1 hello-multi-cloud.apps.ocp.webwim.com:80 check
         server cluster2 hello-multi-cloud.apps.gcp.mc.gcp.rhlabs.io:80 check
@@ -85,8 +85,8 @@ backend app
 
 backend dev_app
     balance roundrobin
-    option httpchk GET / HTTP/1.1\r\nHost:\ kcdc.rhlabs.io.dev.multi-cloud
-    http-request set-header Host kcdc.rhlabs.io.dev.multi-cloud
+    option httpchk GET / HTTP/1.1\r\nHost:\ multi-cloud.dev.kcdc.rhlabs.io
+    http-request set-header Host multi-cloud.dev.kcdc.rhlabs.io
     mode http 
         server cluster1 hello-multi-cloud.apps.ocp.webwim.com:80 check
         server cluster2 hello-multi-cloud.apps.gcp.mc.gcp.rhlabs.io:80 check
