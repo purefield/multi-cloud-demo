@@ -62,7 +62,6 @@ defaults
 #---------------------------------------------------------------------
 frontend  main
     bind *:8080
-
     default_backend             app
 
 #---------------------------------------------------------------------
@@ -70,10 +69,9 @@ frontend  main
 #---------------------------------------------------------------------
 backend app
     balance roundrobin
-    option httpchk GET / HTTP/1.1\r\nHost:\ multi-cloud.kcdc.rhlabs.io
-    http-request set-header Host multi-cloud.kcdc.rhlabs.io
+    option httpchk GET / HTTP/1.1\r\nHost:\ hdr(host)
+    http-request set-header Host hdr(host)
     mode http 
         server cluster1 hello-multi-cloud.apps.ocp.webwim.com:80 check
         server cluster2 hello-multi-cloud.apps.gcp.mc.gcp.rhlabs.io:80 check
         server cluster3 hello-multi-cloud.apps.aws.mc.aws.rhlabs.io:80 check
-

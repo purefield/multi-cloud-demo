@@ -62,11 +62,12 @@ defaults
 #---------------------------------------------------------------------
 frontend  main
     bind *:8080
-    acl ACL_DEV hdr(host) -i INGRESS_SUBDOMAIN.dev.INGRESS_BASE
-    use_backend dev_app if ACL_DEV
 
-    acl ACL_PROD hdr(host) -i INGRESS_SUBDOMAIN.INGRESS_BASE
-    use_backend app if ACL_PROD
+    acl ACL_hello_dev hdr(host) -i INGRESS_BASE.dev.INGRESS_SUBDOMAIN
+    use_backend dev_app if ACL_hello_dev
+
+    acl ACL_hello hdr(host) -i INGRESS_BASE.INGRESS_SUBDOMAIN
+    use_backend app if ACL_hello
 
     default_backend             app
 
@@ -75,9 +76,18 @@ frontend  main
 #---------------------------------------------------------------------
 backend app
     balance roundrobin
-    option httpchk GET / HTTP/1.1\r\nHost:\ <hello_lb_hostname>
+    option httpchk GET / HTTP/1.1\r\nHost:\ INGRESS_BASE.INGRESS_SUBDOMAIN
+    http-request set-header Host INGRESS_BASE.INGRESS_SUBDOMAIN
     mode http 
         server <server1_name> <server1_hello_route>:<route_port> check
         server <server2_name> <server2_hello_route>:<route_port> check
         server <server3_name> <server3_hello_route>:<route_port> check
 
+backend dev_app
+    balance roundrobin
+    option httpchk GET / HTTP/1.1\r\nHost:\ INGRESS_BASE.dev.INGRESS_SUBDOMAIN
+    http-request set-header Host INGRESS_BASE.dev.INGRESS_SUBDOMAIN
+    mode http 
+        server <server1_name> <server1_hello_route>:<route_port> check
+        server <server2_name> <server2_hello_route>:<route_port> check
+        server <server3_name> <server3_hello_route>:<route_port> check

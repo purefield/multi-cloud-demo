@@ -67,5 +67,5 @@ curl -k https://${HAPROXY_DEV_LB_ROUTE}
 cd -
 
 # create application
-oc delete -f multi-cloud.yaml
-oc apply -f multi-cloud.yaml
+#oc delete -f multi-cloud.yaml
+#oc apply -f multi-cloud.yaml
