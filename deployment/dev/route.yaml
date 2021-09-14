@@ -13,3 +13,20 @@ spec:
   port:
     targetPort: 8080
   wildcardPolicy: None
+---
+kind: Route
+apiVersion: route.openshift.io/v1
+metadata:
+  name: hello-lb
+  namespace: multi-cloud
+  labels:
+    app: helloworld-dev-app
+spec:
+  to:
+    kind: Service
+    name: helloworld-dev-app-svc
+    weight: 100
+  port:
+    targetPort: 8080
+  wildcardPolicy: None
+  host: multi-cloud.kcdc.rhlabs.io
