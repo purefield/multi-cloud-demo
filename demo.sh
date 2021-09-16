@@ -20,5 +20,8 @@ oc label ManagedCluster --overwrite=true -l name=$cluster2 app-env-hello=product
 ___ "Move cluster 3 to development"
 oc label ManagedCluster --overwrite=true -l name=$cluster3 app-env-hello=development
 
+___ "Move cluster 1 to production"
+oc label ManagedCluster --overwrite=true -l name=$cluster1 app-env-hello=production
+
 ___ "Remove app from cluster 1"
 oc label ManagedCluster --overwrite=true -l name=$cluster1 app-env-hello-
