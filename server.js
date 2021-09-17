@@ -13,6 +13,7 @@ const ENV      = process.env.ENVIRONMENT || 'unknown';
 const app = express();
 app.get('/', (req, res) => {
   res.send(`Hello World! v${VERSION} in ${ENV} on ${HOSTNAME}\n`);
+  console.log("Request at: " + new Date().toString());
 });
 
 app.listen(PORT, HOST => 
