@@ -79,15 +79,15 @@ backend app
     option httpchk GET / HTTP/1.1\r\nHost:\ multi-cloud-app.kcdc.rhlabs.io
     http-request set-header Host multi-cloud-app.kcdc.rhlabs.io
     mode http 
-        server cluster1 hello-multi-cloud.apps.ocp.webwim.com:80 check
-        server cluster2 hello-multi-cloud.apps.gcp.mc.gcp.rhlabs.io:80 check
-        server cluster3 hello-multi-cloud.apps.aws.mc.aws.rhlabs.io:80 check
+        server cluster1 hello-multi-cloud.apps.ocp.webwim.com:80 check inter 1s fall 1 rise 1
+        server cluster2 hello-multi-cloud.apps.gcp.mc.gcp.rhlabs.io:80 check inter 1s fall 1 rise 1
+        server cluster3 hello-multi-cloud.apps.aws.mc.aws.rhlabs.io:80 check inter 1s fall 1 rise 1
 
 backend dev_app
     balance roundrobin
     option httpchk GET / HTTP/1.1\r\nHost:\ multi-cloud-app.dev.kcdc.rhlabs.io
     http-request set-header Host multi-cloud-app.dev.kcdc.rhlabs.io
     mode http 
-        server cluster1 hello-multi-cloud.apps.ocp.webwim.com:80 check
-        server cluster2 hello-multi-cloud.apps.gcp.mc.gcp.rhlabs.io:80 check
-        server cluster3 hello-multi-cloud.apps.aws.mc.aws.rhlabs.io:80 check
+        server cluster1 hello-multi-cloud.apps.ocp.webwim.com:80 check inter 1s fall 1 rise 1
+        server cluster2 hello-multi-cloud.apps.gcp.mc.gcp.rhlabs.io:80 check inter 1s fall 1 rise 1
+        server cluster3 hello-multi-cloud.apps.aws.mc.aws.rhlabs.io:80 check inter 1s fall 1 rise 1
