@@ -29,8 +29,9 @@ oc secrets link default gitlab-registry-auth --for=pull
 oc secrets link default gitlab-repo-auth --for=pull
 gitlabRegistryAuth=$(oc get secret gitlab-registry-auth -o=jsonpath='{ .data.\.dockerconfigjson }')
 gitlabRepoAuth=$(oc get secret gitlab-repo-auth -o=jsonpath='{ .data.\.dockerconfigjson }')
-perl -pe "s/GITLAB_REGISTRY_AUTH/$gitlabRegistryAuth/" deployment/secrets.yaml.tmpl | \
-perl -pe "s/GITLAB_REPO_AUTH/$gitlabRepoAuth/" > deployment/secrets.yaml
+perl -pe "s/GITLAB_REGISTRY_AUTH/$gitlabRegistryAuth/" secrets.yaml.tmpl | \
+perl -pe "s/GITLAB_REPO_AUTH/$gitlabRepoAuth/" |
+perl -pe "s/GITLAB_ACCESS_TOKEN/$token/"> secrets.yaml
 ```
 
 ```sh
