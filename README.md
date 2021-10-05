@@ -5,14 +5,14 @@ git update-index --assume-unchanged secrets.yaml
 
 Create project and namespace
 ```sh
-oc create -f multi-cloud/app.yaml --save-config
+oc create -f multi-cloud/app.yaml -f multi-cloud/secrets.yaml --save-config
 ```
 
 Create Access Token with api role
 ```sh
 token=--add-token-here--
 email=--add-email-here--
-oc project multi-cloud
+oc project gitlab-auth
 oc delete secret gitlab-registry-auth
 oc delete secret gitlab-repo-auth
 kubectl create secret docker-registry gitlab-registry-auth \
@@ -35,8 +35,8 @@ perl -pe "s/GITLAB_ACCESS_TOKEN/$token/"> secrets.yaml
 ```
 
 ```sh
-oc create -f secrets.yaml --save-config
-oc secrets link default gitlab-access-token --for=pull -n multi-cloud
+oc create -f secrets.yaml --save-config -n gitlab-auth
+oc secrets link default gitlab-access-token --for=pull -n gitlab-auth
 ```
 
 ```sh
