@@ -1,8 +1,8 @@
-oc delete -f multi-cloud/app.yaml -f multi-cloud/secrets.yaml -f secrets.yaml
+oc delete -f multi-cloud/app.yaml -f multi-cloud/gitlab-secrets.yaml -f secrets.yaml
 git update-index --assume-unchanged secrets.yaml
 
 # Create project and namespace
-oc create -f multi-cloud/app.yaml -f multi-cloud/secrets.yaml --save-config
+oc create -f multi-cloud/app.yaml -f multi-cloud/gitlab-secrets.yaml --save-config
 
 # Create Access Token with api role
 oc project gitlab-auth
