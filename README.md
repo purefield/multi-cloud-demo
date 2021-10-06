@@ -1,5 +1,9 @@
 Gitlab integration with ACM
 
+![CI/CD Components](multi-cloud.png)
+![ACM Configuration](acm-config.png)
+
+
 Edit secrets.yaml
 git update-index --assume-unchanged secrets.yaml
 
