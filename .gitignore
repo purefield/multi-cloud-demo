@@ -1,2 +1,3 @@
-secrets.yaml
+./secrets.yaml
+deployment/secrets.yaml
 haproxy/haproxy
