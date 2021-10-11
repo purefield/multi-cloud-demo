@@ -1,3 +1,5 @@
+echo "Run"
+echo "cd /srv/; . ./login.sh; oc-sync-login; cd -"
 oc delete -f multi-cloud/app.yaml -f multi-cloud/gitlab-secrets.yaml -f secrets.yaml
 git update-index --assume-unchanged secrets.yaml
 
@@ -38,3 +40,6 @@ for i in 2 3 4; do
   cluster=$(echo ${clusters[$i]} | cut -d\. -f1)
   oc label ManagedCluster -l name=$cluster usage=gitlab --overwrite=true
 done
+
+./setup.sh
+echo run ./demo.sh
