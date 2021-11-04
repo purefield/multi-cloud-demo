@@ -1,8 +1,8 @@
-oc delete -f multi-cloud/app.yaml -f multi-cloud/secrets.yaml -f secrets.yaml
+oc delete -f multi-cloud/app.yaml -f multi-cloud/gitlab-secrets.yaml -f secrets.yaml
 git update-index --assume-unchanged secrets.yaml
 
 # Create project and namespace
-oc create -f multi-cloud/app.yaml -f multi-cloud/secrets.yaml --save-config
+oc create -f multi-cloud/app.yaml -f multi-cloud/gitlab-secrets.yaml --save-config
 
 # Create Access Token with api role
 oc project gitlab-auth
@@ -26,3 +26,15 @@ perl -pe "s/GITLAB_REPO_AUTH/$gitlabRepoAuth/" |
 perl -pe "s/GITLAB_ACCESS_TOKEN/$token/"> secrets.yaml
 oc apply -f secrets.yaml
 oc secrets link default gitlab-access-token --for=pull
+
+# import logins
+. /srv/login.sh
+oc-login 1
+
+# names
+cluster1="local-cluster"
+oc label ManagedCluster -l name=$cluster1 usage=gitlab --overwrite=true
+for i in 2 3 4; do
+  cluster=$(echo ${clusters[$i]} | cut -d\. -f1)
+  oc label ManagedCluster -l name=$cluster usage=gitlab --overwrite=true
+done

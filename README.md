@@ -9,7 +9,7 @@ git update-index --assume-unchanged secrets.yaml
 
 Create project and namespace
 ```sh
-oc create -f multi-cloud/app.yaml -f multi-cloud/secrets.yaml --save-config
+oc create -f multi-cloud/app.yaml -f multi-cloud/gitlab-secrets.yaml --save-config
 ```
 
 Create Access Token with api role
