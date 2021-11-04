@@ -76,8 +76,8 @@ frontend  main
 #---------------------------------------------------------------------
 backend app
     balance roundrobin
-    option httpchk GET / HTTP/1.1\r\nHost:\ INGRESS_SUBDOMAIN-app.INGRESS_BASE
-    http-request set-header Host INGRESS_SUBDOMAIN-app.INGRESS_BASE
+    option httpchk GET / HTTP/1.1\r\nHost:\ INGRESS_SUBDOMAIN.INGRESS_BASE
+    http-request set-header Host INGRESS_SUBDOMAIN.INGRESS_BASE
     mode http 
         server <server1_name> <server1_hello_route>:<route_port> check inter 1s fall 1 rise 1
         server <server2_name> <server2_hello_route>:<route_port> check inter 1s fall 1 rise 1
@@ -85,8 +85,8 @@ backend app
 
 backend dev_app
     balance roundrobin
-    option httpchk GET / HTTP/1.1\r\nHost:\ INGRESS_SUBDOMAIN-app.dev.INGRESS_BASE
-    http-request set-header Host INGRESS_SUBDOMAIN-app.dev.INGRESS_BASE
+    option httpchk GET / HTTP/1.1\r\nHost:\ INGRESS_SUBDOMAIN.dev.INGRESS_BASE
+    http-request set-header Host INGRESS_SUBDOMAIN.dev.INGRESS_BASE
     mode http 
         server <server1_name> <server1_hello_route>:<route_port> check inter 1s fall 1 rise 1
         server <server2_name> <server2_hello_route>:<route_port> check inter 1s fall 1 rise 1
