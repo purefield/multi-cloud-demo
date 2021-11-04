@@ -137,7 +137,7 @@ metadata:
     policy.open-cluster-management.io/categories: PR.IP Information Protection Processes and Procedures
     policy.open-cluster-management.io/controls: PR.IP-1 Baseline Configuration
 spec:
-  remediationAction: enforce
+  remediationAction: inform 
   disabled: false
   policy-templates:
   - objectDefinition:
@@ -146,7 +146,7 @@ spec:
       metadata:
         name: policy-gitlab-auth
       spec:
-        remediationAction: enforce # will be overridden by remediationAction in parent policy
+        remediationAction: inform # will be overridden by remediationAction in parent policy
         severity: low
         object-templates:
           - complianceType: musthave
