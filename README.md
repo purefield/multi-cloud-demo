@@ -39,6 +39,6 @@ perl -pe "s/GITLAB_ACCESS_TOKEN/$token/"> secrets.yaml
 ```
 
 ```sh
-oc create -f secrets.yaml --save-config -n gitlab-auth
+oc apply -f secrets.yaml -n gitlab-auth
 oc secrets link default gitlab-access-token --for=pull -n gitlab-auth
 ```
