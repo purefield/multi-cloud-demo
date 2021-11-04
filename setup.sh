@@ -22,7 +22,7 @@ cd haproxy
 oc delete --ignore-not-found=1 -f namespace.yaml
 oc apply -f namespace.yaml
 # Define the variable of `HELLO_INGRESS`
-HELLO_INGRESS_BASE=kcdc.rhlabs.io
+HELLO_INGRESS_BASE=box--eng.com
 HELLO_INGRESS_SUBDOMAIN=multi-cloud
 HAPROXY_LB_ROUTE=$HELLO_INGRESS_SUBDOMAIN.$HELLO_INGRESS_BASE
 oc -n multi-cloud-lb create route edge multi-cloud-lb \
