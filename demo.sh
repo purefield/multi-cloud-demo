@@ -1,10 +1,9 @@
 source /srv/login.sh
 source /srv/format.sh
-oc-login 1
+oc-login acm
 cluster1="local-cluster"
 cluster2=$(echo ${clusters[2]} | cut -d\. -f1)
 cluster3=$(echo ${clusters[3]} | cut -d\. -f1)
-
 
 ___ "Remove app-env-hello labels"
 oc label ManagedCluster --all app-env-hello-

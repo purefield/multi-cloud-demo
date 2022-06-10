@@ -1,3 +1,4 @@
 secrets.yaml
 deployment/secrets.yaml
 haproxy/haproxy
+gitlab.token

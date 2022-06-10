@@ -31,11 +31,11 @@ oc secrets link default gitlab-access-token --for=pull
 
 # import logins
 . /srv/login.sh
-oc-login 1
+oc-login acm
 
 # names
 cluster1="local-cluster"
-oc label ManagedCluster -l name=$cluster1 usage=gitlab --overwrite=true
+# oc label ManagedCluster -l name=$cluster1 usage=gitlab --overwrite=true
 for i in 2 3 4; do
   cluster=$(echo ${clusters[$i]} | cut -d\. -f1)
   oc label ManagedCluster -l name=$cluster usage=gitlab --overwrite=true
