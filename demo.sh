@@ -26,7 +26,7 @@ ___ "Remove app from cluster 1"
 oc label ManagedCluster --overwrite=true -l name=$cluster1 app-env-hello-
 
 ___ "Create code change"
-git checkout origin-gitlab development
+git checkout development
 perl -pe 's/(VERSION\D+)\d+$/${1}2/' -i server.js
 git diff server.js
 ___ "Push change to development"
