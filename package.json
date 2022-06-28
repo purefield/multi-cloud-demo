@@ -5,9 +5,11 @@
   "author": "Daniel Schimpfoessl <dds@redhat.com>",
   "main": "server.js",
   "scripts": {
-    "start": "node server.js"
+    "start": "node server.js",
+    "test": "jest"
   },
   "dependencies": {
-    "express": "^4.16.1"
+    "express": "^4.16.1",
+    "jest": "^28.1.1"
   }
 }
