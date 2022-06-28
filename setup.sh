@@ -3,9 +3,10 @@
 oc-login acm
 
 # names
-cluster1="local-cluster"
-cluster2=$(echo ${clusters[2]} | cut -d\. -f1)
-cluster3=$(echo ${clusters[3]} | cut -d\. -f1)
+cluster0="local-cluster"
+cluster1=$(echo ${clusters[2]} | cut -d\. -f1)
+cluster2=$(echo ${clusters[3]} | cut -d\. -f1)
+cluster3=$(echo ${clusters[4]} | cut -d\. -f1)
 
 # in ACM label each cluster with their clustername:cluster1,...
 #                                      clusterid=cluster1,... 
@@ -35,13 +36,13 @@ oc -n multi-cloud-lb create route edge multi-cloud-dev-lb \
    --hostname=${HAPROXY_DEV_LB_ROUTE}
 echo $HAPROXY_DEV_LB_ROUTE
 # Define the variable of `HELLO_CLUSTER1`
-oc-login acm
+oc-login ocp1
 HELLO_CLUSTER1=hello-multi-cloud.$(oc get ingresses.config.openshift.io cluster -o jsonpath='{ .spec.domain }')
 # Define the variable of `HELLO_CLUSTER2`
-oc-login ocp1
+oc-login ocp2
 HELLO_CLUSTER2=hello-multi-cloud.$(oc get ingresses.config.openshift.io cluster -o jsonpath='{ .spec.domain }')
 # Define the variable of `HELLO_CLUSTER3`
-oc-login ocp2
+oc-login ocp3
 HELLO_CLUSTER3=hello-multi-cloud.$(oc get ingresses.config.openshift.io cluster -o jsonpath='{ .spec.domain }')
 # Copy the sample configmap
 rm -f haproxy; cp haproxy.tmpl haproxy

@@ -8,6 +8,8 @@ oc create -f multi-cloud/app.yaml -f multi-cloud/gitlab-secrets.yaml --save-conf
 
 # Create Access Token with api role
 oc project gitlab-auth
+oc delete secret gitlab-registry-auth
+oc delete secret gitlab-repo-auth
 kubectl create secret docker-registry gitlab-registry-auth \
         --docker-server=registry.gitlab.com \
         --docker-username=openshift-token\
@@ -35,10 +37,16 @@ oc-login acm
 
 # names
 cluster1="local-cluster"
-# oc label ManagedCluster -l name=$cluster1 usage=gitlab --overwrite=true
+oc label ManagedCluster -l name=$cluster1 usage=gitlab --overwrite=true
 for i in 2 3 4; do
   cluster=$(echo ${clusters[$i]} | cut -d\. -f1)
   oc label ManagedCluster -l name=$cluster usage=gitlab --overwrite=true
+done
+for i in 2 3 4; do
+  oc-login $i
+  oc create namespace gitlab-auth
+  oc apply -f secrets.yaml
+  oc secrets link default gitlab-access-token --for=pull
 done
 
 ./setup.sh

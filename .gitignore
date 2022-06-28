@@ -2,3 +2,4 @@ secrets.yaml
 deployment/secrets.yaml
 haproxy/haproxy
 gitlab.token
+gitlab.dockerconfig.json
