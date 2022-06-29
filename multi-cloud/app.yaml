@@ -126,6 +126,17 @@ spec:
               apiVersion: v1
               metadata:
                 name: multi-cloud
+          - complianceType: musthave
+            objectDefinition:
+              kind: ConfigMap
+              apiVersion: v1
+              metadata:
+                name: platform
+                namespace: multi-cloud
+              data:
+                platform: '{{ fromClusterClaim "platform.open-cluster-management.io" }}'
+                product: '{{ fromClusterClaim "product.open-cluster-management.io" }}'
+                version: '{{ fromClusterClaim "version.openshift.io" }}'
 ---
 apiVersion: policy.open-cluster-management.io/v1
 kind: Policy
