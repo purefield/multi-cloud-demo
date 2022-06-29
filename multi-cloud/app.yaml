@@ -134,7 +134,7 @@ spec:
                 name: platform
                 namespace: multi-cloud
               data:
-                name:     '{{ fromClusterClaim "name" }}'
+                cluster:  '{{ fromClusterClaim "name" }}'
                 platform: '{{ fromClusterClaim "platform.open-cluster-management.io" }}'
                 product:  '{{ fromClusterClaim "product.open-cluster-management.io" }}'
                 version:  '{{ fromClusterClaim "version.openshift.io" }}'
