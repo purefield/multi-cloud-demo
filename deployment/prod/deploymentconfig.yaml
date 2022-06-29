@@ -31,6 +31,18 @@ spec:
             value: "8080"
           - name: "ENVIRONMENT"
             value: "production"
+          - name: "PLATFORM"
+            valueFrom:
+              configMapKeyRef:
+                name: platform
+                key: name
+                optional: true
+          - name: "VERSION"
+            valueFrom:
+              configMapKeyRef:
+                name: platform
+                key: version
+                optional: true
         resources:
           limits:
             cpu: 200m

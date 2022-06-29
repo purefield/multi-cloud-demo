@@ -134,9 +134,10 @@ spec:
                 name: platform
                 namespace: multi-cloud
               data:
+                name:     '{{ fromClusterClaim "name" }}'
                 platform: '{{ fromClusterClaim "platform.open-cluster-management.io" }}'
-                product: '{{ fromClusterClaim "product.open-cluster-management.io" }}'
-                version: '{{ fromClusterClaim "version.openshift.io" }}'
+                product:  '{{ fromClusterClaim "product.open-cluster-management.io" }}'
+                version:  '{{ fromClusterClaim "version.openshift.io" }}'
 ---
 apiVersion: policy.open-cluster-management.io/v1
 kind: Policy
