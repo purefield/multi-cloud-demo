@@ -45,6 +45,7 @@ done
 for i in 2 3 4; do
   oc-login $i
   oc create namespace gitlab-auth
+  oc project gitlab-auth
   oc apply -f secrets.yaml
   oc secrets link default gitlab-access-token --for=pull
 done

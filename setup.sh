@@ -7,6 +7,7 @@ cluster0="local-cluster"
 cluster1=$(echo ${clusters[2]} | cut -d\. -f1)
 cluster2=$(echo ${clusters[3]} | cut -d\. -f1)
 cluster3=$(echo ${clusters[4]} | cut -d\. -f1)
+cluster4=$(echo ${clusters[5]} | cut -d\. -f1)
 
 # in ACM label each cluster with their clustername:cluster1,...
 #                                      clusterid=cluster1,... 
@@ -16,6 +17,8 @@ oc label ManagedCluster -l name=$cluster2 clusterid=cluster2    --overwrite=true
 oc label ManagedCluster -l name=$cluster2 clustername=cluster2  --overwrite=true
 oc label ManagedCluster -l name=$cluster3 clusterid=cluster3    --overwrite=true
 oc label ManagedCluster -l name=$cluster3 clustername=cluster3  --overwrite=true
+oc label ManagedCluster -l name=$cluster4 clusterid=cluster4    --overwrite=true
+oc label ManagedCluster -l name=$cluster4 clustername=cluster4  --overwrite=true
 
 # install haproxy
 oc-login acm
@@ -44,6 +47,9 @@ HELLO_CLUSTER2=hello-multi-cloud.$(oc get ingresses.config.openshift.io cluster 
 # Define the variable of `HELLO_CLUSTER3`
 oc-login ocp3
 HELLO_CLUSTER3=hello-multi-cloud.$(oc get ingresses.config.openshift.io cluster -o jsonpath='{ .spec.domain }')
+# Define the variable of `HELLO_CLUSTER4`
+oc-login ocp4
+HELLO_CLUSTER4=hello-multi-cloud.$(oc get ingresses.config.openshift.io cluster -o jsonpath='{ .spec.domain }')
 # Copy the sample configmap
 rm -f haproxy; cp haproxy.tmpl haproxy
 # Update the HAProxy configuration
@@ -55,6 +61,8 @@ sed -i "s/<server1_name> <server1_hello_route>:<route_port>/cluster1 ${HELLO_CLU
 sed -i "s/<server2_name> <server2_hello_route>:<route_port>/cluster2 ${HELLO_CLUSTER2}:80/g" haproxy
 # Replace the value with the variable `HELLO_CLUSTER3`
 sed -i "s/<server3_name> <server3_hello_route>:<route_port>/cluster3 ${HELLO_CLUSTER3}:80/g" haproxy
+# Replace the value with the variable `HELLO_CLUSTER4`
+sed -i "s/<server4_name> <server4_hello_route>:<route_port>/cluster4 ${HELLO_CLUSTER4}:80/g" haproxy
 # Create the configmap
 oc-login acm
 oc -n multi-cloud-lb create configmap haproxy --from-file=haproxy

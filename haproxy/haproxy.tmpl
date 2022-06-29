@@ -82,6 +82,7 @@ backend app
         server <server1_name> <server1_hello_route>:<route_port> check inter 1s fall 1 rise 1
         server <server2_name> <server2_hello_route>:<route_port> check inter 1s fall 1 rise 1
         server <server3_name> <server3_hello_route>:<route_port> check inter 1s fall 1 rise 1
+        server <server4_name> <server4_hello_route>:<route_port> check inter 1s fall 1 rise 1
 
 backend dev_app
     balance roundrobin
@@ -91,3 +92,4 @@ backend dev_app
         server <server1_name> <server1_hello_route>:<route_port> check inter 1s fall 1 rise 1
         server <server2_name> <server2_hello_route>:<route_port> check inter 1s fall 1 rise 1
         server <server3_name> <server3_hello_route>:<route_port> check inter 1s fall 1 rise 1
+        server <server4_name> <server4_hello_route>:<route_port> check inter 1s fall 1 rise 1
