@@ -35,13 +35,19 @@ spec:
             valueFrom:
               configMapKeyRef:
                 name: platform
-                key: name
+                key: platform
                 optional: true
           - name: "VERSION"
             valueFrom:
               configMapKeyRef:
                 name: platform
                 key: version
+                optional: true
+          - name: "CLUSTER"
+            valueFrom:
+              configMapKeyRef:
+                name: platform
+                key: cluster
                 optional: true
         resources:
           limits:
