@@ -6,7 +6,7 @@ cluster2=$(echo ${clusters[3]} | cut -d\. -f1)
 cluster3=$(echo ${clusters[4]} | cut -d\. -f1)
 cluster4=$(echo ${clusters[5]} | cut -d\. -f1)
 
-___ "Remove App Subscription Report (tmp)"
+__ "Remove App Subscription Report (tmp)"
 oc delete appsubreport -n ocp ocp
 oc delete appsubreport -n aws aws
 oc delete appsubreport -n azure azure
