@@ -1,10 +1,10 @@
 echo "Run"
 echo "cd /srv/; . ./login.sh; oc-sync-login; cd -"
-oc delete -f multi-cloud/app.yaml -f multi-cloud/gitlab-secrets.yaml -f secrets.yaml
+oc delete -f multi-cloud/app.yaml -f secrets.yaml # -f multi-cloud/gitlab-secrets.yaml
 git update-index --assume-unchanged secrets.yaml
 
 # Create project and namespace
-oc create -f multi-cloud/app.yaml -f multi-cloud/gitlab-secrets.yaml --save-config
+oc create --save-config -f multi-cloud/app.yaml # -f multi-cloud/gitlab-secrets.yaml
 
 # Create Access Token with api role
 oc project gitlab-auth
