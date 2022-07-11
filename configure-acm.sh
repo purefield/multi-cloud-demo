@@ -31,23 +31,5 @@ perl -pe "s/GITLAB_ACCESS_TOKEN/$token/"> secrets.yaml
 oc apply -f secrets.yaml
 oc secrets link default gitlab-access-token --for=pull
 
-# import logins
-. /srv/login.sh
-oc-login acm
-
-# names
-cluster1="local-cluster"
-for i in 2 3 4 5; do
-  cluster=$(echo ${clusters[$i]} | cut -d\. -f1)
-  oc label ManagedCluster -l name=$cluster usage=gitlab --overwrite=true
-done
-#for i in 2 3 4 5; do
-#  oc-login $i
-#  oc create namespace gitlab-auth
-#  oc project gitlab-auth
-#  oc apply -f secrets.yaml
-#  oc secrets link default gitlab-access-token --for=pull
-#done
-
 ./setup.sh
 echo run ./demo.sh
