@@ -1,15 +1,19 @@
 echo "Run"
 echo "cd /srv/; . ./login.sh; oc-sync-login; cd -"
 oc delete -f multi-cloud/app.yaml -f secrets.yaml # -f multi-cloud/gitlab-secrets.yaml
+oc wait --for=delete ns/multi-cloud -A 
 git update-index --assume-unchanged secrets.yaml
 
 # Create project and namespace
 oc create --save-config -f multi-cloud/app.yaml # -f multi-cloud/gitlab-secrets.yaml
+oc wait --for=jsonpath='{.status.phase}'=Active ns/multi-cloud
 
 # Create Access Token with api role
+source gitlab.token
 oc project gitlab-auth
 oc delete secret gitlab-registry-auth
 oc delete secret gitlab-repo-auth
+oc wait --for=delete secret/gitlab-repo-auth -A
 kubectl create secret docker-registry gitlab-registry-auth \
         --docker-server=registry.gitlab.com \
         --docker-username=openshift-token\

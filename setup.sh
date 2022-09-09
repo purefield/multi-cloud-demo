@@ -38,6 +38,7 @@ oc label ManagedCluster -l name=$cluster4 clustername=cluster4  --overwrite=true
 oc-login acm
 cd haproxy
 oc delete --ignore-not-found=1 -f namespace.yaml
+oc wait for=delete ns/multi-cloud-lb -A
 oc apply -f namespace.yaml
 # Define the variable of `HELLO_INGRESS`
 HELLO_INGRESS_BASE=box--eng.com
