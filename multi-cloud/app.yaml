@@ -142,8 +142,8 @@ spec:
 apiVersion: policy.open-cluster-management.io/v1
 kind: Policy
 metadata:
-  name: policy-gitlab-auth
-  namespace: multi-cloud
+  name: policy-gitlab-auth-registry
+  namespace: gitlab-auth
   annotations:
     policy.open-cluster-management.io/standards: NIST-CSF
     policy.open-cluster-management.io/categories: PR.IP Information Protection Processes and Procedures
@@ -156,7 +156,43 @@ spec:
       apiVersion: policy.open-cluster-management.io/v1
       kind: ConfigurationPolicy
       metadata:
-        name: policy-gitlab-auth
+        name: policy-gitlab-auth-registry
+      spec:
+        remediationAction: enforce # will be overridden by remediationAction in parent policy
+        severity: low
+        object-templates:
+          - complianceType: musthave
+            objectDefinition:
+              apiVersion: v1
+              kind: Secret
+              type: kubernetes.io/dockerconfigjson
+              metadata:
+                name: gitlab-registry-auth
+                namespace: multi-cloud
+                annotations:
+                  apps.open-cluster-management.io/deployables: "secret"
+              data:
+                .dockerconfigjson: |
+                  {{hub fromSecret "gitlab-auth" "gitlab-registry-auth" ".dockerconfigjson" hub}}
+---
+apiVersion: policy.open-cluster-management.io/v1
+kind: Policy
+metadata:
+  name: policy-gitlab-auth-token
+  namespace: gitlab-auth
+  annotations:
+    policy.open-cluster-management.io/standards: NIST-CSF
+    policy.open-cluster-management.io/categories: PR.IP Information Protection Processes and Procedures
+    policy.open-cluster-management.io/controls: PR.IP-1 Baseline Configuration
+spec:
+  remediationAction: enforce
+  disabled: false
+  policy-templates:
+  - objectDefinition:
+      apiVersion: policy.open-cluster-management.io/v1
+      kind: ConfigurationPolicy
+      metadata:
+        name: policy-gitlab-auth-token
       spec:
         remediationAction: enforce # will be overridden by remediationAction in parent policy
         severity: low
@@ -171,21 +207,31 @@ spec:
                 annotations:
                   apps.open-cluster-management.io/deployables: "secret"
               data:
-                user:        '{{ fromSecret "gitlab-auth" "gitlab-access-token" "user" }}'
-                accessToken: '{{ fromSecret "gitlab-auth" "gitlab-access-token" "accessToken" }}'
-          - complianceType: musthave
-            objectDefinition:
-              apiVersion: v1
-              kind: Secret
-              type: kubernetes.io/dockerconfigjson
-              metadata:
-                name: gitlab-registry-auth
-                namespace: multi-cloud
-                annotations:
-                  apps.open-cluster-management.io/deployables: "secret"
-              data:
-                .dockerconfigjson: |
-                  {{ fromSecret "gitlab-auth" "gitlab-registry-auth" ".dockerconfigjson" }}
+                user:        '{{hub fromSecret "gitlab-auth" "gitlab-access-token" "user" hub}}'
+                accessToken: '{{hub fromSecret "gitlab-auth" "gitlab-access-token" "accessToken" hub}}'
+---
+apiVersion: policy.open-cluster-management.io/v1
+kind: Policy
+metadata:
+  name: policy-gitlab-auth-repo
+  namespace: gitlab-auth
+  annotations:
+    policy.open-cluster-management.io/standards: NIST-CSF
+    policy.open-cluster-management.io/categories: PR.IP Information Protection Processes and Procedures
+    policy.open-cluster-management.io/controls: PR.IP-1 Baseline Configuration
+spec:
+  remediationAction: enforce
+  disabled: false
+  policy-templates:
+  - objectDefinition:
+      apiVersion: policy.open-cluster-management.io/v1
+      kind: ConfigurationPolicy
+      metadata:
+        name: policy-gitlab-auth-repo
+      spec:
+        remediationAction: enforce # will be overridden by remediationAction in parent policy
+        severity: low
+        object-templates:
           - complianceType: musthave
             objectDefinition:
               apiVersion: v1
@@ -198,7 +244,7 @@ spec:
                   apps.open-cluster-management.io/deployables: "secret"
               data:
                 .dockerconfigjson: |
-                  {{ fromSecret "gitlab-auth" "gitlab-repo-auth" ".dockerconfigjson" }}
+                  {{hub fromSecret "gitlab-auth" "gitlab-repo-auth" ".dockerconfigjson" hub}}
 ---
 apiVersion: policy.open-cluster-management.io/v1
 kind: PlacementBinding
@@ -218,13 +264,19 @@ apiVersion: policy.open-cluster-management.io/v1
 kind: PlacementBinding
 metadata:
   name: binding-policy-gitlab-auth-multi-cloud
-  namespace: multi-cloud
+  namespace: gitlab-auth
 placementRef:
-  name: placement-policy-multi-cloud
+  name: policy-gitlab-auth-placement
   kind: PlacementRule
   apiGroup: apps.open-cluster-management.io
 subjects:
-- name: policy-gitlab-auth
+- name: policy-gitlab-auth-token
+  kind: Policy
+  apiGroup: policy.open-cluster-management.io
+- name: policy-gitlab-auth-repo
+  kind: Policy
+  apiGroup: policy.open-cluster-management.io
+- name: policy-gitlab-auth-registry
   kind: Policy
   apiGroup: policy.open-cluster-management.io
 ---
@@ -240,3 +292,19 @@ spec:
   clusterSelector:
     matchExpressions:
       []  # selects all clusters if not specified
+---
+apiVersion: apps.open-cluster-management.io/v1
+kind: PlacementRule
+metadata:
+  name: policy-gitlab-auth-placement
+  namespace: gitlab-auth
+spec:
+  clusterSelector:
+    matchExpressions:
+      - key: usage
+        operator: In
+        values:
+          - gitlab
+  clusterConditions:
+    - status: "True"
+      type: ManagedClusterConditionAvailable
