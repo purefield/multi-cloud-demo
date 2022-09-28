@@ -1,5 +1,7 @@
 # import logins
 . /srv/login.sh
+oc-sync-login
+. /srv/login.sh
 oc-login acm
 
 # names
@@ -89,6 +91,8 @@ HELLO_LB_ROUTE=$(oc -n multi-cloud-lb get route multi-cloud-lb -o jsonpath='{.st
 curl -k https://${HAPROXY_LB_ROUTE}
 curl -k https://${HAPROXY_DEV_LB_ROUTE}
 cd -
+
+oc get cm -n multi-cloud-lb haproxy -o=jsonpath='{.data.haproxy}'
 
 # create application
 #oc delete -f multi-cloud.yaml
