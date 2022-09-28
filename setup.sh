@@ -3,6 +3,20 @@
 oc-login acm
 
 # names
+cluster1="local-cluster"
+for i in 2 3 4 5; do
+  cluster=$(echo ${clusters[$i]} | cut -d\. -f1)
+  oc label ManagedCluster -l name=$cluster usage=gitlab --overwrite=true
+done
+#for i in 2 3 4 5; do
+#  oc-login $i
+#  oc create namespace gitlab-auth
+#  oc project gitlab-auth
+#  oc apply -f secrets.yaml
+#  oc secrets link default gitlab-access-token --for=pull
+#done
+
+# names
 cluster0="local-cluster"
 cluster1=$(echo ${clusters[2]} | cut -d\. -f1)
 cluster2=$(echo ${clusters[3]} | cut -d\. -f1)
@@ -24,6 +38,7 @@ oc label ManagedCluster -l name=$cluster4 clustername=cluster4  --overwrite=true
 oc-login acm
 cd haproxy
 oc delete --ignore-not-found=1 -f namespace.yaml
+oc wait for=delete ns/multi-cloud-lb -A
 oc apply -f namespace.yaml
 # Define the variable of `HELLO_INGRESS`
 HELLO_INGRESS_BASE=box--eng.com
