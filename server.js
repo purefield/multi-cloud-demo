@@ -3,7 +3,7 @@
 const express = require('express');
 
 // Constants
-const VERSION     = 2
+const VERSION     = 1
 const HOST        = '0.0.0.0';
 const PORT        = process.env.PORT || 8080;
 const HOSTNAME    = process.env.HOSTNAME    || 'unknown';
