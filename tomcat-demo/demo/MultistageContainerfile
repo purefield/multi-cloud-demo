@@ -1,0 +1,25 @@
+# First stage: complete build environment
+FROM maven:latest AS builder
+
+# add pom.xml and source code
+ADD ./pom.xml pom.xml
+ADD ./src src/
+
+# package war
+RUN mvn clean package
+
+# Second stage: minimal runtime environment
+From tomcat:latest
+
+ENV HOSTNAME=my-container-stage \
+    ENV=user-acceptance \
+    CLUSTER=j67894-p8ir \
+    PLATFORM=local \
+    OCP_VERSION=4.10
+
+# copy jar from the first stage
+COPY --from=builder target/demo.war /usr/local/tomcat/webapps/
+
+EXPOSE 8080
+
+CMD ["catalina.sh", "run"]
