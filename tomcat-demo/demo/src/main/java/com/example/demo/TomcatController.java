@@ -12,7 +12,7 @@ public class TomcatController {
     @Autowired
     private Environment env;
 
-    @GetMapping("/hellotomcat")
+    @GetMapping("/")
     public String hello(@RequestParam(defaultValue = "Tomcat") String who) {
         System.out.print(String.format("Hello %s World! %s", who, getEnv()));
         return String.format("Hello %s World! %s", who, getEnv());

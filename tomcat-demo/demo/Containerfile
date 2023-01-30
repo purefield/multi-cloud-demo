@@ -6,7 +6,8 @@ ENV HOSTNAME=my-container \
     PLATFORM=local \
     OCP_VERSION=4.10
 
-ADD target/demo.war /usr/local/tomcat/webapps/
+RUN rm -rf /usr/local/tomcat/webapps/ROOT 
+ADD target/demo.war /usr/local/tomcat/webapps/ROOT.war
 
 EXPOSE 8080
 
