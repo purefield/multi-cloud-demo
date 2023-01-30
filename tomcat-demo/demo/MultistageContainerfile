@@ -9,7 +9,7 @@ ADD ./src src/
 RUN mvn clean package
 
 # Second stage: minimal runtime environment
-From tomcat:latest
+FROM tomcat:latest
 
 ENV HOSTNAME=my-container-stage \
     ENV=user-acceptance \
