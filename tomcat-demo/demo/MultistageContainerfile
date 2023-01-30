@@ -3,9 +3,11 @@ FROM maven:latest AS builder
 
 # add pom.xml and source code
 ADD ./pom.xml pom.xml
-ADD ./src src/
+# cache dependencies
+RUN mvn verify --fail-never
 
 # package war
+ADD ./src src/
 RUN mvn clean package
 
 # Second stage: minimal runtime environment
