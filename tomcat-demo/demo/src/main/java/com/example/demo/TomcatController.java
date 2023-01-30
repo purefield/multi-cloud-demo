@@ -17,6 +17,7 @@ public class TomcatController {
         System.out.print(String.format("Hello %s World! %s", who, getEnv()));
         return String.format("Hello %s World! %s", who, getEnv());
     }
+    
     private String getEnv() {
         String version = "2";
         String hostname = env.getProperty("HOSTNAME");
