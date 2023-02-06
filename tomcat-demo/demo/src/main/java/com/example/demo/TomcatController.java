@@ -25,7 +25,7 @@ public class TomcatController {
         String cluster     = env.getProperty("CLUSTER");
         String platform    = env.getProperty("PLATFORM");
         String ocpVersion  = env.getProperty("VERSION");
-        String tyep        = env.getProperty("TYPE", "container");
+        String type        = env.getProperty("TYPE", "tomcat-container");
 
         StringBuilder sb = new StringBuilder("v");
         sb.append(version)
@@ -39,6 +39,8 @@ public class TomcatController {
         .append(String.format("%11s", environment))
         .append(".")
         .append(String.format("%-5s", cluster))
+        .append(".")
+        .append(type)
         .append("\n")
         ;
 
