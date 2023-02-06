@@ -19,7 +19,7 @@ public class TomcatController {
     }
     
     private String getEnv() {
-        String version = "2";
+        String version = "1";
         String hostname    = env.getProperty("HOSTNAME");
         String environment = env.getProperty("ENVIRONMENT");
         String cluster     = env.getProperty("CLUSTER");
@@ -32,13 +32,13 @@ public class TomcatController {
         .append(" on ")
         .append(String.format("%[9]s", platform))
         .append(" OCP v")
-        .append(String.format("%-[7]s", ocpVersion)
+        .append(String.format("%-[7]s", ocpVersion))
         .append(" ")
-        .append(String.format("%[10]s", hostname)
+        .append(String.format("%[10]s", hostname))
         .append(" in ")
-        .append(String.format("%[11]s", environment)
+        .append(String.format("%[11]s", environment))
         .append(".")
-        .append(String.format("%-[5]s", cluster)
+        .append(String.format("%-[5]s", cluster))
         .append("\n")
         ;
 
