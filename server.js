@@ -14,7 +14,7 @@ const OCP_VERSION = process.env.VERSION     || 'unknown';
 
 // App
 const app = express();
-const ver = `v${VERSION} on ${PLATFORM.padStart(9, " ")} OCP v${OCP_VERSION} ${HOSTNAME.padEnd(10, "")} in ${ENV.padStart(11, " ")}.${CLUSTER.padEnd(5, " ")}`;
+const ver = `v${VERSION} on ${PLATFORM.padStart(9, " ")} OCP v${OCP_VERSION.padEnd(7, "")} ${HOSTNAME.padEnd(10, " ")} in ${ENV.padStart(11, " ")}.${CLUSTER.padEnd(5, " ")}`;
 app.get('/', (req, res) => {
   res.send(`Hello World! ${ver}\n`);
   console.log("Request at: " + new Date().toString());
