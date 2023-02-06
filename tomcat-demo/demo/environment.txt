@@ -1,5 +1,5 @@
-HOSTNAME="my-server"
-ENV="development"
-CLUSTER="mck11-123"
-PLATFORM="local"
-OCP_VERSION="4.10"
+HOSTNAME=my-server
+ENV=development
+CLUSTER=mck11-123
+PLATFORM=local
+OCP_VERSION=4.10
