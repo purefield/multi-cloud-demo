@@ -39,7 +39,7 @@ public class TomcatController {
         .append(" in ")
         .append(String.format("%11s", environment))
         .append(".")
-        .append(String.format("%-5s", cluster))
+        .append(cluster)
         .append(".")
         .append(type)
         .append("\n")
