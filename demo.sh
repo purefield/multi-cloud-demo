@@ -6,11 +6,11 @@ cluster2=$(echo ${clusters[3]} | cut -d\. -f1)
 cluster3=$(echo ${clusters[4]} | cut -d\. -f1)
 cluster4=$(echo ${clusters[5]} | cut -d\. -f1)
 
-__ "Remove App Subscription Report (tmp)"
-oc delete appsubreport -n ocp ocp
-oc delete appsubreport -n aws aws
-oc delete appsubreport -n azure azure
-oc delete appsubreport -n gcp gcp
+# __ "Remove App Subscription Report (tmp)"
+# oc delete appsubreport -n ocp ocp
+# oc delete appsubreport -n aws aws
+# oc delete appsubreport -n azure azure
+# oc delete appsubreport -n gcp gcp
 
 ___ "Remove app-env-hello labels"
 oc label ManagedCluster --all app-env-hello-

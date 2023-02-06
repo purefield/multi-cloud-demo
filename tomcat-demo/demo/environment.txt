@@ -1,0 +1,5 @@
+HOSTNAME=localhost
+ENVIRONMENT=development
+CLUSTER=local
+PLATFORM=PODMAN
+VERSION=4.xx
