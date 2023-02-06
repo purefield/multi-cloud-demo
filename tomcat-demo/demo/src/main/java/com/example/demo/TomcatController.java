@@ -13,9 +13,10 @@ public class TomcatController {
     private Environment env;
 
     @GetMapping("/")
-    public String hello(@RequestParam(defaultValue = "Tomcat") String who) {
-        System.out.print(String.format("Hello %s World! %s", who, getEnv()));
-        return String.format("Hello %s World! %s", who, getEnv());
+    public String hello() {
+	String msg = String.format("Hello World! %s", getEnv());
+        System.out.print(msg);
+        return String.format(msg);
     }
     
     private String getEnv() {
@@ -34,7 +35,7 @@ public class TomcatController {
         .append(" OCP v")
         .append(String.format("%-7s", ocpVersion))
         .append(" ")
-        .append(String.format("%10s", hostname))
+        .append(String.format("%28s", hostname))
         .append(" in ")
         .append(String.format("%11s", environment))
         .append(".")
