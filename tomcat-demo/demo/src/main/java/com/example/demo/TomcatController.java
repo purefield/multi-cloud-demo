@@ -21,24 +21,24 @@ public class TomcatController {
     private String getEnv() {
         String version = "1";
         String hostname    = env.getProperty("HOSTNAME");
-        String environment = env.getProperty("ENVIRONMENT");
+        String environment = env.getProperty("ENVIRONMENT", "development");
         String cluster     = env.getProperty("CLUSTER");
         String platform    = env.getProperty("PLATFORM");
         String ocpVersion  = env.getProperty("VERSION");
+        String tyep        = env.getProperty("TYPE", "container");
 
         StringBuilder sb = new StringBuilder("v");
         sb.append(version)
-        .append(" ")
         .append(" on ")
-        .append(String.format("%[9]s", platform))
+        .append(String.format("%9s", platform))
         .append(" OCP v")
-        .append(String.format("%-[7]s", ocpVersion))
+        .append(String.format("%-7s", ocpVersion))
         .append(" ")
-        .append(String.format("%[10]s", hostname))
+        .append(String.format("%10s", hostname))
         .append(" in ")
-        .append(String.format("%[11]s", environment))
+        .append(String.format("%11s", environment))
         .append(".")
-        .append(String.format("%-[5]s", cluster))
+        .append(String.format("%-5s", cluster))
         .append("\n")
         ;
 
