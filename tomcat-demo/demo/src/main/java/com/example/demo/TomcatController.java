@@ -19,25 +19,26 @@ public class TomcatController {
     }
     
     private String getEnv() {
-        String version = "2";
-        String hostname = env.getProperty("HOSTNAME");
-        String environment = env.getProperty("ENV");
-        String cluster = env.getProperty("CLUSTER");
-        String platform = env.getProperty("PLATFORM");
-        String ocpVersion = env.getProperty("OCP_VERSION");
+        String version = "1";
+        String hostname    = env.getProperty("HOSTNAME");
+        String environment = env.getProperty("ENVIRONMENT", "development");
+        String cluster     = env.getProperty("CLUSTER");
+        String platform    = env.getProperty("PLATFORM");
+        String ocpVersion  = env.getProperty("VERSION");
+        String tyep        = env.getProperty("TYPE", "container");
 
         StringBuilder sb = new StringBuilder("v");
         sb.append(version)
-        .append(" ")
-        .append(environment)
-        .append(".")
-        .append(cluster)
         .append(" on ")
-        .append(platform)
+        .append(String.format("%9s", platform))
         .append(" OCP v")
-        .append(ocpVersion)
+        .append(String.format("%-7s", ocpVersion))
         .append(" ")
-        .append(hostname)
+        .append(String.format("%10s", hostname))
+        .append(" in ")
+        .append(String.format("%11s", environment))
+        .append(".")
+        .append(String.format("%-5s", cluster))
         .append("\n")
         ;
 

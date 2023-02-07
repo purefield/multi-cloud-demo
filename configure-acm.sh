@@ -5,6 +5,7 @@ oc wait --for=delete ns/multi-cloud -A
 git update-index --assume-unchanged secrets.yaml
 
 # Create project and namespace
+oc new-project gitlab-auth
 oc create --save-config -f multi-cloud/app.yaml # -f multi-cloud/gitlab-secrets.yaml
 oc wait --for=jsonpath='{.status.phase}'=Active ns/multi-cloud
 
