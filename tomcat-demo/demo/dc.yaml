@@ -1,0 +1,84 @@
+kind: DeploymentConfig
+apiVersion: apps.openshift.io/v1
+metadata:
+  name: hello-tomcat-dc
+  namespace: multi-cloud
+  labels:
+    app: helloworld-dev-app
+    app-instance: hello-tomcat
+    apps.open-cluster-management.io/reconcile-rate: high
+spec:
+  strategy:
+    type: Rolling
+    rollingParams:
+      updatePeriodSeconds: 1
+      intervalSeconds: 1
+      timeoutSeconds: 600
+      maxUnavailable: 25%
+      maxSurge: 25%
+    resources: {}
+    activeDeadlineSeconds: 21600
+  triggers:
+    - type: ImageChange
+      imageChangeParams:
+        automatic: true
+        containerNames:
+          - hello-tomcat
+        from:
+          kind: ImageStreamTag
+          namespace: multi-cloud
+          name: 'hello-tomcat:latest'
+        lastTriggeredImage: >-
+          quay.io/dds/multi-cloud/hello-java:latest
+  replicas: 1
+  revisionHistoryLimit: 2
+  test: false
+  selector:
+    app-instance: hello-tomcat
+    deploymentconfig: hello-tomcat-dc
+  template:
+    metadata:
+      labels:
+        app: helloworld-dev-app
+        app-instance: hello-tomcat
+        deploymentconfig: hello-tomcat-dc
+    spec:
+      containers:
+        - name: hello-tomcat
+          image: >-
+            quay.io/dds/multi-cloud/hello-java:latest
+          ports:
+            - containerPort: 8080
+              protocol: TCP
+          env:
+            - name: PORT
+              value: '8080'
+            - name: ENVIRONMENT
+              value: development
+            - name: PLATFORM
+              valueFrom:
+                configMapKeyRef:
+                  name: platform
+                  key: platform
+                  optional: true
+            - name: VERSION
+              valueFrom:
+                configMapKeyRef:
+                  name: platform
+                  key: version
+                  optional: true
+            - name: CLUSTER
+              valueFrom:
+                configMapKeyRef:
+                  name: platform
+                  key: cluster
+                  optional: true
+          resources:
+            limits:
+              cpu: 200m
+              memory: 256Mi
+          imagePullPolicy: Always
+      restartPolicy: Always
+      terminationGracePeriodSeconds: 30
+      dnsPolicy: ClusterFirst
+      schedulerName: default-scheduler
