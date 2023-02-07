@@ -13,12 +13,6 @@ RUN mvn clean package
 # Second stage: minimal runtime environment
 FROM registry.access.redhat.com/ubi8/ubi:8.7-1054
 
-ENV HOSTNAME=my-container-stage \
-    ENV=user-acceptance \
-    CLUSTER=j67894-p8ir \
-    PLATFORM=local \
-    OCP_VERSION=4.10
-
 ARG TOMCAT_VERSION=10.0.27 
 
 RUN mkdir /opt/tomcat

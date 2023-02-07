@@ -5,6 +5,7 @@ import org.springframework.core.env.Environment;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.RestController;
+import java.net.InetAddress;
 
 @RestController
 public class TomcatController {
@@ -21,7 +22,9 @@ public class TomcatController {
     
     private String getEnv() {
         String version = "1";
-        String hostname    = env.getProperty("HOSTNAME");
+        String localHostname = "";
+        try { localHostname = InetAddress.getLocalHost().getHostName(); } catch (java.net.UnknownHostException e){}
+        String hostname    = env.getProperty("HOSTNAME", localHostname);
         String environment = env.getProperty("ENVIRONMENT", "development");
         String cluster     = env.getProperty("CLUSTER");
         String platform    = env.getProperty("PLATFORM");
