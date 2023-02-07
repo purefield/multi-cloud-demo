@@ -27,6 +27,10 @@ RUN rm -rf /opt/tomcat/webapps/ROOT
 # copy and rename our app so that it will run without a context root
 ADD target/demo.war /opt/tomcat/webapps/ROOT.war
 
+# change ownership and permissions so that app will run in OpenShift
+RUN chgrp -R 0 /opt/tomcat/ && \
+    chmod -R g=u /opt/tomcat/
+
 EXPOSE 8080
 
 CMD ["/opt/tomcat/bin/catalina.sh", "run"]
