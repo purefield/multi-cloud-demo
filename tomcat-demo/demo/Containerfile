@@ -1,4 +1,6 @@
-FROM tomcat:latest
+FROM registry.access.redhat.com/ubi8/ubi:8.7
+
+ARG TOMCAT_VERSION=10.0.27
 
 ENV HOSTNAME=my-container \
     ENV=production \
@@ -6,9 +8,25 @@ ENV HOSTNAME=my-container \
     PLATFORM=local \
     OCP_VERSION=4.10
 
-RUN rm -rf /usr/local/tomcat/webapps/ROOT 
-ADD target/demo.war /usr/local/tomcat/webapps/ROOT.war
+RUN mkdir /opt/tomcat
+
+WORKDIR /opt/tomcat
+
+# install xz package so we can unzip tomcat
+# install java so we can run tomcat
+RUN dnf -yq install xz && \
+    dnf -yq install java-17-openjdk
+
+ADD https://dlcdn.apache.org/tomcat/tomcat-10/v${TOMCAT_VERSION}/bin/apache-tomcat-${TOMCAT_VERSION}.tar.gz $WORKDIR
+
+RUN tar xvfz apache-tomcat-${TOMCAT_VERSION}.tar.gz && \
+    mv apache-tomcat-${TOMCAT_VERSION}/* .
+
+# remove the root tomcat webapp so we can run without a context root
+RUN rm -rf /opt/tomcat/webapps/ROOT 
+# copy and rename our app so that it will run without a context root
+ADD target/demo.war /opt/tomcat/webapps/ROOT.war
 
 EXPOSE 8080
 
-CMD ["catalina.sh", "run"]
+CMD ["/opt/tomcat/bin/catalina.sh", "run"]

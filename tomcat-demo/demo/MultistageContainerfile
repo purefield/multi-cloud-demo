@@ -1,17 +1,17 @@
 # First stage: complete build environment
-FROM maven:latest AS builder
+FROM registry.access.redhat.com/ubi8/openjdk-17:1.14-10 AS builder
 
-# add pom.xml and source code
+# add pom.xml 
 ADD ./pom.xml pom.xml
 # cache dependencies
 RUN mvn verify --fail-never
 
-# package war
+# add source code and package war
 ADD ./src src/
 RUN mvn clean package
 
 # Second stage: minimal runtime environment
-FROM tomcat:latest
+FROM registry.access.redhat.com/ubi8/ubi:8.7-1054
 
 ENV HOSTNAME=my-container-stage \
     ENV=user-acceptance \
@@ -19,10 +19,27 @@ ENV HOSTNAME=my-container-stage \
     PLATFORM=local \
     OCP_VERSION=4.10
 
-# copy jar from the first stage
-RUN rm -rf /usr/local/tomcat/webapps/ROOT
-COPY --from=builder target/demo.war /usr/local/tomcat/webapps/ROOT.war
+ARG TOMCAT_VERSION=10.0.27 
+
+RUN mkdir /opt/tomcat
+
+WORKDIR /opt/tomcat
+
+# install xz package so we can unzip tomcat
+# install java so we can run tomcat
+RUN dnf -yq install xz && \
+    dnf -yq install java-17-openjdk
+
+ADD https://dlcdn.apache.org/tomcat/tomcat-10/v${TOMCAT_VERSION}/bin/apache-tomcat-${TOMCAT_VERSION}.tar.gz $WORKDIR
+
+RUN tar xvfz apache-tomcat-${TOMCAT_VERSION}.tar.gz && \
+    mv apache-tomcat-${TOMCAT_VERSION}/* .    
+
+# remove the root tomcat webapp so we can run without a context root
+RUN rm -rf /opt/tomcat/webapps/ROOT 
+# copy from the first container and rename our app so that it will run without a context root
+COPY --from=builder /home/jboss/target/demo.war /opt/tomcat/webapps/ROOT.war
 
 EXPOSE 8080
 
-CMD ["catalina.sh", "run"]
+CMD ["/opt/tomcat/bin/catalina.sh", "run"]
