@@ -37,6 +37,7 @@ RUN tar xvfz apache-tomcat-${TOMCAT_VERSION}.tar.gz && \
 
 # remove the root tomcat webapp so we can run without a context root
 RUN rm -rf /opt/tomcat/webapps/ROOT 
+RUN chmod 664 /opt/tomcat/conf/server.xml && chmod 775 /opt/tomcat/conf/
 # copy from the first container and rename our app so that it will run without a context root
 COPY --from=builder /home/jboss/target/demo.war /opt/tomcat/webapps/ROOT.war
 
