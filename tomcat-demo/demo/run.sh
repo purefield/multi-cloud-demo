@@ -11,4 +11,4 @@ podman run --rm -d -p 8080:8080 --name hello-java \
 	-e HOSTNAME="$(hostname -s)" \
 	-e TYPE="tomcat-vm" \
 	quay.io/dds/multi-cloud/hello-java
-podman ps hello-java
+podman ps
