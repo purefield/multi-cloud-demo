@@ -1,3 +1,23 @@
+apiVersion: image.openshift.io/v1
+kind: ImageStream
+metadata:
+  name: hello-tomcat
+  namespace: multi-cloud
+spec:
+  lookupPolicy:
+    local: true
+  tags:
+    - name: latest
+      from:
+        kind: DockerImage
+        name: >-
+          quay.io/dds/multi-cloud/hello-java:latest
+      importPolicy:
+        scheduled: true
+        importMode: Legacy
+      referencePolicy:
+        type: Source
+---
 kind: DeploymentConfig
 apiVersion: apps.openshift.io/v1
 metadata:
