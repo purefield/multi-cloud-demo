@@ -14,7 +14,7 @@ rm -f haproxy; cp haproxy.tmpl haproxy
 sed -i "s/INGRESS_BASE/${HELLO_INGRESS_BASE}/g" haproxy
 sed -i "s/INGRESS_SUBDOMAIN/${HELLO_INGRESS_SUBDOMAIN}/g" haproxy
 # get all managed cluster base domains
-for domain in $(oc get managedcluster -o jsonpath='{range .items[*].spec.managedClusterClientConfigs[]}{.url}{"\n"}{end}' | perl -pe 's|https://api.([^:]+):\d+|$1|g' | sort -n); do
+for domain in $(oc get managedcluster -l multi-cloud=member -o jsonpath='{range .items[*].spec.managedClusterClientConfigs[]}{.url}{"\n"}{end}' | perl -pe 's|https://api.([^:]+):\d+|$1|g' | sort -n); do
 	name=$(echo $domain | cut -d\. -f1);
 	echo "$name -> $domain";
 	# oc label ManagedCluster -l name=$name --overwrite=true
