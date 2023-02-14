@@ -27,14 +27,14 @@ cluster4=$(echo ${clusters[5]} | cut -d\. -f1)
 
 # in ACM label each cluster with their clustername:cluster1,...
 #                                      clusterid=cluster1,... 
-oc label ManagedCluster -l name=$cluster1 clusterid=cluster1    --overwrite=true
-oc label ManagedCluster -l name=$cluster1 clustername=cluster1  --overwrite=true
-oc label ManagedCluster -l name=$cluster2 clusterid=cluster2    --overwrite=true
-oc label ManagedCluster -l name=$cluster2 clustername=cluster2  --overwrite=true
-oc label ManagedCluster -l name=$cluster3 clusterid=cluster3    --overwrite=true
-oc label ManagedCluster -l name=$cluster3 clustername=cluster3  --overwrite=true
-oc label ManagedCluster -l name=$cluster4 clusterid=cluster4    --overwrite=true
-oc label ManagedCluster -l name=$cluster4 clustername=cluster4  --overwrite=true
+oc label ManagedCluster -l name=$cluster1 clusterid=cluster1    multi-cloud=member --overwrite=true
+oc label ManagedCluster -l name=$cluster1 clustername=cluster1  multi-cloud=member --overwrite=true
+oc label ManagedCluster -l name=$cluster2 clusterid=cluster2    multi-cloud=member --overwrite=true
+oc label ManagedCluster -l name=$cluster2 clustername=cluster2  multi-cloud=member --overwrite=true
+oc label ManagedCluster -l name=$cluster3 clusterid=cluster3    multi-cloud=member --overwrite=true
+oc label ManagedCluster -l name=$cluster3 clustername=cluster3  multi-cloud=member --overwrite=true
+oc label ManagedCluster -l name=$cluster4 clusterid=cluster4    multi-cloud=member --overwrite=true
+oc label ManagedCluster -l name=$cluster4 clustername=cluster4  multi-cloud=member --overwrite=true
 
 # install haproxy
 oc-login acm
@@ -82,8 +82,8 @@ echo $HAPROXY_DEV_LB_ROUTE
 # - replaced with update-haproxy.sh - sed -i "s/<server4_name> <server4_hello_route>:<route_port>/cluster4 ${HELLO_CLUSTER4}:80/g" haproxy
 # - replaced with update-haproxy.sh - # Create the configmap
 # - replaced with update-haproxy.sh - oc-login acm
-oc -n multi-cloud-lb create configmap haproxy --from-file=haproxy
-./update-haproxy.sh
+oc -n multi-cloud-lb create configmap haproxy
+../update-haproxy.sh
 # create haproxy and check it
 oc -n multi-cloud-lb create -f haproxy-clusterip-service.yaml
 oc -n multi-cloud-lb create -f haproxy-deployment.yaml
