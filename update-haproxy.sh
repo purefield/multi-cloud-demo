@@ -22,4 +22,5 @@ for domain in $(oc get managedcluster -l multi-cloud=member -o jsonpath='{range 
 done
 oc set data cm -n multi-cloud-lb haproxy --from-file=haproxy
 oc get cm -n multi-cloud-lb haproxy -o=jsonpath='{.data.haproxy}'
+oc rollout restart deployment/multi-cloud-lb -n multi-cloud-lb
 cd -
