@@ -1,7 +1,7 @@
 kind: Route
 apiVersion: route.openshift.io/v1
 metadata:
-  name: hello
+  name: hello-prod
   namespace: multi-cloud
   labels:
     app: helloworld-prod-app
@@ -17,7 +17,7 @@ spec:
 kind: Route
 apiVersion: route.openshift.io/v1
 metadata:
-  name: hello-lb
+  name: hello-prod-lb
   namespace: multi-cloud
   labels:
     app: helloworld-prod-app

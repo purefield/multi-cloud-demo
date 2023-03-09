@@ -42,10 +42,10 @@ defaults
     mode                    http
     log                     global
     option                  httplog
-    option                  dontlognull
-    option http-server-close
-    option forwardfor       except 127.0.0.0/8
     option                  redispatch
+    option                  dontlognull
+    option                  http-server-close
+    option forwardfor       except 127.0.0.0/8
     retries                 2
     timeout http-request    5s
     timeout queue           1m
@@ -79,17 +79,9 @@ backend app
     option httpchk GET / HTTP/1.1\r\nHost:\ INGRESS_SUBDOMAIN-app.INGRESS_BASE
     http-request set-header Host INGRESS_SUBDOMAIN-app.INGRESS_BASE
     mode http 
-        server <server1_name> <server1_hello_route>:<route_port> check inter 1s fall 1 rise 1
-        server <server2_name> <server2_hello_route>:<route_port> check inter 1s fall 1 rise 1
-        server <server3_name> <server3_hello_route>:<route_port> check inter 1s fall 1 rise 1
-        server <server4_name> <server4_hello_route>:<route_port> check inter 1s fall 1 rise 1
 
 backend dev_app
     balance roundrobin
     option httpchk GET / HTTP/1.1\r\nHost:\ INGRESS_SUBDOMAIN-app.dev.INGRESS_BASE
     http-request set-header Host INGRESS_SUBDOMAIN-app.dev.INGRESS_BASE
     mode http 
-        server <server1_name> <server1_hello_route>:<route_port> check inter 1s fall 1 rise 1
-        server <server2_name> <server2_hello_route>:<route_port> check inter 1s fall 1 rise 1
-        server <server3_name> <server3_hello_route>:<route_port> check inter 1s fall 1 rise 1
-        server <server4_name> <server4_hello_route>:<route_port> check inter 1s fall 1 rise 1
