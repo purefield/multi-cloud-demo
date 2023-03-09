@@ -22,7 +22,7 @@ spec:
       - name: gitlab-registry-auth
       containers:
       - name: helloworld-dev-app
-        image: helloworld-imagestream:development
+        image: helloworld-dev-imagestream:development
         imagePullPolicy: Always
         ports:
           - containerPort: 8080
@@ -66,4 +66,4 @@ spec:
       from:
         kind: ImageStreamTag
         namespace: multi-cloud
-        name: helloworld-imagestream:development
+        name: helloworld-dev-imagestream:development
