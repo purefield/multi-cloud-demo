@@ -42,10 +42,10 @@ defaults
     mode                    http
     log                     global
     option                  httplog
-    option                  dontlognull
-    option http-server-close
-    option forwardfor       except 127.0.0.0/8
     option                  redispatch
+    option                  dontlognull
+    option                  http-server-close
+    option forwardfor       except 127.0.0.0/8
     retries                 2
     timeout http-request    5s
     timeout queue           1m
