@@ -36,5 +36,5 @@ perl -pe "s/GITLAB_ACCESS_TOKEN/$token/"> secrets.yaml
 oc apply -f secrets.yaml
 oc secrets link default gitlab-access-token --for=pull
 
-./setup.sh
+./configure-haproxy.sh
 echo run ./demo.sh
