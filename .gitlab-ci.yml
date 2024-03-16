@@ -3,4 +3,3 @@ include:
 
 variables:
   DAST_DISABLED: "true"
-
