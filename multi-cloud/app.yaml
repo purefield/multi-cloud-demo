@@ -169,7 +169,10 @@ spec:
                 name: default
                 namespace: multi-cloud
               imagePullSecrets:
-              - name: gitlab-registry-auth
+                - name: gitlab-access-token
+                - name: gitlab-registry-auth
+                - name: gitlab-repo-auth
+                - name: gitlab-registry-auth
           - complianceType: musthave
             objectDefinition:
               apiVersion: v1
