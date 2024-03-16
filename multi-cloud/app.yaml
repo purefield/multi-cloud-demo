@@ -164,6 +164,15 @@ spec:
           - complianceType: musthave
             objectDefinition:
               apiVersion: v1
+              kind: ServiceAccount
+              metadata:
+                name: default
+                namespace: multi-cloud
+              imagePullSecrets:
+              - name: gitlab-registry-auth
+          - complianceType: musthave
+            objectDefinition:
+              apiVersion: v1
               kind: Secret
               type: kubernetes.io/dockerconfigjson
               metadata:
