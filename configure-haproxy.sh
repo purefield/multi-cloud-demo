@@ -1,18 +1,17 @@
 # import logins
-. /srv/login.sh
-oc-sync-login
-. /srv/login.sh
-oc-login acm
+#. /srv/login.sh
+#oc-sync-login
+#. /srv/login.sh
+oc config use-context acm
 
 # names
-for i in 2 3 4 5; do
-  cluster=$(echo ${clusters[$i]} | cut -d\. -f1)
+for cluster in $(oc config get-contexts -o name | sort | perl -pe 's/acm/local-cluster/' | grep -v '\:'); do
   oc label ManagedCluster -l name=$cluster usage=gitlab       --overwrite=true
   oc label ManagedCluster -l name=$cluster multi-cloud=member --overwrite=true
 done
 
 # install haproxy
-oc-login acm
+oc config use-context acm
 cd haproxy
 oc delete --ignore-not-found=1 -f namespace.yaml
 oc wait for=delete ns/multi-cloud-lb -A

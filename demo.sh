@@ -1,16 +1,11 @@
-source /srv/login.sh
-source /srv/format.sh
-oc-login acm
-cluster1=$(echo ${clusters[2]} | cut -d\. -f1)
-cluster2=$(echo ${clusters[3]} | cut -d\. -f1)
-cluster3=$(echo ${clusters[4]} | cut -d\. -f1)
-cluster4=$(echo ${clusters[5]} | cut -d\. -f1)
-
-# __ "Remove App Subscription Report (tmp)"
-# oc delete appsubreport -n ocp ocp
-# oc delete appsubreport -n aws aws
-# oc delete appsubreport -n azure azure
-# oc delete appsubreport -n gcp gcp
+source ./format.sh
+oc config use-context acm
+clusters=($(oc config get-contexts -o name | sort | perl -pe 's/acm/local-cluster/'| grep -v '\:'))
+cluster1=${clusters[0]}
+cluster2=${clusters[1]}
+cluster3=${clusters[2]}
+cluster4=${clusters[3]}
+cluster5=${clusters[4]}
 
 ___ "Remove app-env-hello labels"
 oc label ManagedCluster --all app-env-hello-
@@ -20,6 +15,7 @@ oc label ManagedCluster --overwrite=true -l name=$cluster1 app-env-hello=develop
 oc label ManagedCluster --overwrite=true -l name=$cluster2 app-env-hello=development
 oc label ManagedCluster --overwrite=true -l name=$cluster3 app-env-hello=production
 oc label ManagedCluster --overwrite=true -l name=$cluster4 app-env-hello=production
+oc label ManagedCluster --overwrite=true -l name=$cluster5 app-env-hello=development
 
 ___ "Move cluster 2 to production"
 oc label ManagedCluster --overwrite=true -l name=$cluster2 app-env-hello=production
