@@ -1,10 +1,10 @@
-#source /srv/login.sh
-#source /srv/format.sh
+source ./format.sh
 oc config use-context acm
-cluster1="local-cluster"
-cluster2="aro"
-cluster3="aws"
-cluster4="gcp"
+clusters=($(oc config get-contexts -o name | sort | perl -pe 's/acm/local-cluster/'))
+cluster1=${clusters[0]}
+cluster2=${clusters[1]}
+cluster3=${clusters[2]}
+cluster4=${clusters[3]}
 
 ___ "Remove app-env-hello labels"
 oc label ManagedCluster --all app-env-hello-
