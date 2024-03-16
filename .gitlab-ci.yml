@@ -1,3 +1,5 @@
-auto-devops:
-  enable_dast_container_scanning: false
+include:
+  - template: Auto-DevOps.gitlab-ci.yml
 
+variables:
+  DAST_DISABLED: "true"
