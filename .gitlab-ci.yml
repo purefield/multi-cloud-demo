@@ -1,7 +1,0 @@
-include:
-  - template: Auto-DevOps.gitlab-ci.yml
-
-dast:
-  stage: dast
-  allow_failure: true
-
