@@ -10,7 +10,7 @@ spec:
   - name: "development"
     from:
       kind: DockerImage
-      name: "registry.gitlab.com/gitlab-com/alliances/ibm-red-hat/sandbox/customer-k/multi-cloud-demo/development:latest"
+      name: "registry.gitlab.com/gitlab-com/partners/alliance/ibm-red-hat/sandbox/customer-k/multi-cloud-demo/development:latest"
     importPolicy: {scheduled: true}
     referencePolicy:
       type: Source
