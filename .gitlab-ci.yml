@@ -1,0 +1,3 @@
+auto-devops:
+  enable_dast_container_scanning: false
+
