@@ -1,16 +1,10 @@
-source /srv/login.sh
-source /srv/format.sh
-oc-login acm
-cluster1=$(echo ${clusters[2]} | cut -d\. -f1)
-cluster2=$(echo ${clusters[3]} | cut -d\. -f1)
-cluster3=$(echo ${clusters[4]} | cut -d\. -f1)
-cluster4=$(echo ${clusters[5]} | cut -d\. -f1)
-
-# __ "Remove App Subscription Report (tmp)"
-# oc delete appsubreport -n ocp ocp
-# oc delete appsubreport -n aws aws
-# oc delete appsubreport -n azure azure
-# oc delete appsubreport -n gcp gcp
+#source /srv/login.sh
+#source /srv/format.sh
+oc config use-context acm
+cluster1="local-cluster"
+cluster2="aro"
+cluster3="aws"
+cluster4="gcp"
 
 ___ "Remove app-env-hello labels"
 oc label ManagedCluster --all app-env-hello-
