@@ -1,6 +1,6 @@
 source ./format.sh
 oc config use-context acm
-clusters=($(oc config get-contexts -o name | sort | perl -pe 's/acm/local-cluster/'))
+clusters=($(oc config get-contexts -o name | sort | perl -pe 's/acm/local-cluster/'| grep -v '\:'))
 cluster1=${clusters[0]}
 cluster2=${clusters[1]}
 cluster3=${clusters[2]}

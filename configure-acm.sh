@@ -1,5 +1,4 @@
-echo "Run"
-echo "cd /srv/; . ./login.sh; oc-sync-login; cd -"
+oc config use-context acm
 oc delete -f multi-cloud/app.yaml -f secrets.yaml # -f multi-cloud/gitlab-secrets.yaml
 oc wait --for=delete ns/multi-cloud -A 
 git update-index --assume-unchanged secrets.yaml

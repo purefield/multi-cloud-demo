@@ -5,7 +5,7 @@
 oc config use-context acm
 
 # names
-for cluster in $(oc config get-contexts -o name | sort | perl -pe 's/acm/local-cluster/'); do
+for cluster in $(oc config get-contexts -o name | sort | perl -pe 's/acm/local-cluster/' | grep -v '\:'); do
   oc label ManagedCluster -l name=$cluster usage=gitlab       --overwrite=true
   oc label ManagedCluster -l name=$cluster multi-cloud=member --overwrite=true
 done
