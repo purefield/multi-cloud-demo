@@ -10,7 +10,7 @@ spec:
   - name: "production"
     from:
       kind: DockerImage
-      name: "registry.gitlab.com/gitlab-com/partners/alliance/ibm-red-hat/sandbox/customer-k/multi-cloud-demo/hello:v1"
+      name: "registry.gitlab.com/gitlab-com/partners/alliance/ibm-red-hat/sandbox/customer-k/multi-cloud-demo/hello:prod"
     importPolicy: {scheduled: true}
     referencePolicy:
       type: Source
