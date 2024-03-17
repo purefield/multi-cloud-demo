@@ -17,16 +17,16 @@ oc label ManagedCluster --overwrite=true -l name=$cluster3 app-env-hello=product
 oc label ManagedCluster --overwrite=true -l name=$cluster4 app-env-hello=production
 oc label ManagedCluster --overwrite=true -l name=$cluster5 app-env-hello=development
 
-___ "Move cluster 2 to production"
+___ "Move cluster $cluster2 to production"
 oc label ManagedCluster --overwrite=true -l name=$cluster2 app-env-hello=production
 
-___ "Move cluster 3 to development"
+___ "Move cluster $cluster3 to development"
 oc label ManagedCluster --overwrite=true -l name=$cluster3 app-env-hello=development
 
-___ "Move cluster 1 to production"
+___ "Move cluster $cluster1 to production"
 oc label ManagedCluster --overwrite=true -l name=$cluster1 app-env-hello=production
 
-___ "Remove app from cluster 1"
+___ "Remove app from cluster $cluster1"
 oc label ManagedCluster --overwrite=true -l name=$cluster1 app-env-hello-
 
 ___ "Create code change"
