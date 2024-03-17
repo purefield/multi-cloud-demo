@@ -1,0 +1,30 @@
+apiVersion: v1
+kind: Pod
+metadata:
+  name: watch-multi-cloud
+  namespace: multi-cloud
+  labels:
+    app: watch-multi-cloud
+spec:
+  securityContext:
+    runAsNonRoot: true
+  containers:
+  - name: watcher
+    image: registry.access.redhat.com/ubi8/ubi:latest
+    command: ["/bin/bash"]
+    args: ["-c", "/app/watcher.sh"]
+    volumeMounts:
+    - name: watch-multi-cloud
+      mountPath: "/app"
+    securityContext:
+      allowPrivilegeEscalation: false
+      capabilities:
+        drop:
+        - ALL
+      seccompProfile:
+        type: RuntimeDefault
+  volumes:
+  - name: watch-multi-cloud
+    configMap:
+      name: watch-multi-cloud
+      defaultMode: 0777

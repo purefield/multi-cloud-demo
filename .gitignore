@@ -4,3 +4,4 @@ haproxy/haproxy
 gitlab.token
 gitlab.dockerconfig.json
 node_modules/
+login-all.sh
