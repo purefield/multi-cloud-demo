@@ -44,9 +44,15 @@ oc secrets link default gitlab-access-token --for=pull -n gitlab-auth
 ```
 
 ```sh
+# build the app with RHEL UBI
+./build.sh
+# configure subscription in ACM 
 configure-acm.sh 
  -> setup.sh
     -> update-haproxy.sh
+# move applications around for demo
 demo.sh
+# watch applications being moved
+./deployment/watch.sh
 ```
 
