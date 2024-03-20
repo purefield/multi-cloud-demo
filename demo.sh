@@ -9,7 +9,7 @@ cluster5=${clusters[4]}
 
 __ "Resume $cluster3 cluster from hibernation"
 oc patch clusterdeployment $cluster3 -n $cluster3 --type merge -p '{"spec": {"powerState": "Running"}}'
-oc wait clusterdeployment/aws -n aws --for=jsonpath='{.status.powerState}'=Running --timeout=60s
+oc wait clusterdeployment/$cluster3 -n $cluster3 --for=jsonpath='{.status.powerState}'=Running --timeout=60s
 
 ___ "Remove app-env-hello labels"
 oc label ManagedCluster --all app-env-hello-
