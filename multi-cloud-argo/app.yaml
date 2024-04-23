@@ -1,0 +1,99 @@
+---
+kind: ConfigMap
+apiVersion: v1
+metadata:
+  name: acm-placement
+  namespace: openshift-gitops
+data:
+  apiVersion: cluster.open-cluster-management.io/v1beta1
+  kind: placementdecisions
+  matchKey: clusterName
+  statusListKey: decisions
+---
+kind: ConfigMap
+apiVersion: v1
+metadata:
+  name: acm-placementrule
+  namespace: openshift-gitops
+data:
+  apiVersion: apps.open-cluster-management.io/v1
+  kind: placementrules
+  matchKey: clusterName
+  statusListKey: decisions
+---
+apiVersion: argoproj.io/v1alpha1
+kind: ApplicationSet
+metadata:
+  name: hello-argo
+  namespace: openshift-gitops
+spec:
+  generators:
+    - clusterDecisionResource:
+        configMapRef: acm-placement
+        labelSelector:
+          matchLabels:
+            cluster.open-cluster-management.io/placement: hello-argo-placement
+        requeueAfterSeconds: 180
+  template:
+    metadata:
+      name: hello-argo-{{name}}
+      annotations:
+        apps.open-cluster-management.io/ocm-managed-cluster: "{{name}}"
+        apps.open-cluster-management.io/ocm-managed-cluster-app-namespace: openshift-gitops
+        argocd.argoproj.io/skip-reconcile: "true"
+      labels:
+        apps.open-cluster-management.io/pull-to-ocm-managed-cluster: "true"
+        velero.io/exclude-from-backup: "true"
+    spec:
+      destination:
+        namespace: multi-cloud
+        server: "{{server}}"
+      project: default
+      sources:
+        - path: deployment/dev
+          repoURL: https://github.com/purefield/multi-cloud-demo.git
+          targetRevision: development
+          repositoryType: git
+      syncPolicy:
+        automated:
+          prune: true
+          selfHeal: true
+        syncOptions:
+          - CreateNamespace=true
+          - PruneLast=true
+---
+apiVersion: apps.open-cluster-management.io/v1beta1
+kind: GitOpsCluster
+metadata:
+  name: openshift-gitops
+  namespace: openshift-gitops
+spec:
+  argoServer:
+    cluster: local-cluster
+    argoNamespace: openshift-gitops
+  placementRef:
+    apiVersion: cluster.open-cluster-management.io/v1beta1
+    kind: Placement
+    name: hello-argo-placement
+    namespace: openshift-gitops
+---
+apiVersion: cluster.open-cluster-management.io/v1beta1
+kind: Placement
+metadata:
+  name: hello-argo-placement
+  namespace: openshift-gitops
+spec:
+  clusterSets:
+    - ola
+  predicates:
+    - requiredClusterSelector:
+        labelSelector:
+          matchExpressions:
+            - key: name
+              operator: NotIn
+              values:
+                - local-cluster
+            - key: app-env-hello
+              operator: In
+              values:
+                - development-argo
