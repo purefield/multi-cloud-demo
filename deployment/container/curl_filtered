@@ -1,0 +1,1 @@
+$(which curl) --max-time 0.5 -ks $@ | grep -i hello

@@ -29,7 +29,7 @@ metadata:
   namespace: multi-cloud
 spec:
   type: Git
-  pathname: 'https://gitlab.com/gitlab-com/alliances/ibm-red-hat/sandbox/customer-k/multi-cloud-demo.git'
+  pathname: 'https://gitlab.com/gitlab-com/partners/alliance/ibm-red-hat/sandbox/customer-k/multi-cloud-demo.git'
   secretRef:
     name: gitlab-access-token
 ---
@@ -161,6 +161,18 @@ spec:
         remediationAction: enforce # will be overridden by remediationAction in parent policy
         severity: low
         object-templates:
+          - complianceType: musthave
+            objectDefinition:
+              apiVersion: v1
+              kind: ServiceAccount
+              metadata:
+                name: default
+                namespace: multi-cloud
+              imagePullSecrets:
+                - name: gitlab-access-token
+                - name: gitlab-registry-auth
+                - name: gitlab-repo-auth
+                - name: gitlab-registry-auth
           - complianceType: musthave
             objectDefinition:
               apiVersion: v1

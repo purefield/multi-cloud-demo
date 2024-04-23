@@ -1,0 +1,19 @@
+# Use a UBI base image
+FROM registry.access.redhat.com/ubi8/ubi:latest
+
+# Create a directory for your application
+WORKDIR /app
+
+# Copy package.json and package-lock.json
+COPY curl_filtered watch-container.sh ./
+
+# OpenShift runs containers using an arbitrarily assigned user ID
+# Ensure the application directory is writable by this user
+RUN chown -R 1001:0 /app && \
+    chmod -R g+rwX /app
+
+# Specify the user to run the application (non-root)
+USER 1001
+
+# Define the command to run your application
+CMD ["watch-container.sh"]

@@ -1,8 +1,8 @@
 # import logins
-. /srv/login.sh
-oc-sync-login
-. /srv/login.sh
-oc-login acm
+#. /srv/login.sh
+#oc-sync-login
+#. /srv/login.sh
+oc config use-context acm
 
 # update haproxy
 # Define the variable of `HELLO_INGRESS`
