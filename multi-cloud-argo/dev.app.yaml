@@ -43,7 +43,7 @@ spec:
 apiVersion: apps.open-cluster-management.io/v1beta1
 kind: GitOpsCluster
 metadata:
-  name: openshift-gitops
+  name: hello-dev-argo-cluster
   namespace: openshift-gitops
 spec:
   argoServer:
