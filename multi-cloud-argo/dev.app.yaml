@@ -1,30 +1,8 @@
 ---
-kind: ConfigMap
-apiVersion: v1
-metadata:
-  name: acm-placement
-  namespace: openshift-gitops
-data:
-  apiVersion: cluster.open-cluster-management.io/v1beta1
-  kind: placementdecisions
-  matchKey: clusterName
-  statusListKey: decisions
----
-kind: ConfigMap
-apiVersion: v1
-metadata:
-  name: acm-placementrule
-  namespace: openshift-gitops
-data:
-  apiVersion: apps.open-cluster-management.io/v1
-  kind: placementrules
-  matchKey: clusterName
-  statusListKey: decisions
----
 apiVersion: argoproj.io/v1alpha1
 kind: ApplicationSet
 metadata:
-  name: hello-argo
+  name: hello-dev-argo
   namespace: openshift-gitops
 spec:
   generators:
@@ -32,11 +10,11 @@ spec:
         configMapRef: acm-placement
         labelSelector:
           matchLabels:
-            cluster.open-cluster-management.io/placement: hello-argo-placement
+            cluster.open-cluster-management.io/placement: hello-dev-argo-placement
         requeueAfterSeconds: 180
   template:
     metadata:
-      name: hello-argo-{{name}}
+      name: hello-dev-argo-{{name}}
       annotations:
         apps.open-cluster-management.io/ocm-managed-cluster: "{{name}}"
         apps.open-cluster-management.io/ocm-managed-cluster-app-namespace: openshift-gitops
@@ -65,7 +43,7 @@ spec:
 apiVersion: apps.open-cluster-management.io/v1beta1
 kind: GitOpsCluster
 metadata:
-  name: openshift-gitops
+  name: hello-dev-argo-cluster
   namespace: openshift-gitops
 spec:
   argoServer:
@@ -74,13 +52,13 @@ spec:
   placementRef:
     apiVersion: cluster.open-cluster-management.io/v1beta1
     kind: Placement
-    name: hello-argo-placement
+    name: hello-dev-argo-placement
     namespace: openshift-gitops
 ---
 apiVersion: cluster.open-cluster-management.io/v1beta1
 kind: Placement
 metadata:
-  name: hello-argo-placement
+  name: hello-dev-argo-placement
   namespace: openshift-gitops
 spec:
   clusterSets:
