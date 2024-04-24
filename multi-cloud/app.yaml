@@ -133,6 +133,8 @@ spec:
               metadata:
                 name: platform
                 namespace: multi-cloud
+                annotation:
+                  argocd.argoproj.io/hook: Skip
               data:
                 cluster:  '{{ fromClusterClaim "name" }}'
                 platform: '{{ fromClusterClaim "platform.open-cluster-management.io" }}'
