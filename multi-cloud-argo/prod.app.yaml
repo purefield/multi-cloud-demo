@@ -30,7 +30,7 @@ spec:
       sources:
         - path: deployment/prod
           repoURL: https://github.com/purefield/multi-cloud-demo.git
-          targetRevision: production
+          targetRevision: main
           repositoryType: git
       syncPolicy:
         automated:
