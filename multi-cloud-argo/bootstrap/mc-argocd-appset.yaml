@@ -25,9 +25,9 @@ spec:
         server: https://kubernetes.default.svc
         namespace: openshift-operators
       source:
-        repoURL: https://github.com/yourorg/yourrepo.git
+        repoURL: https://github.com/purefield/multi-cloud-demo.git
         targetRevision: argocd
-        path: bootstrap/operator
+        path: multi-cloud-argo/bootstrap/operator
       syncPolicy:
         automated:
           prune: true

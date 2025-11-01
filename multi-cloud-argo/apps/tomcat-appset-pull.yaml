@@ -24,7 +24,7 @@ spec:
       source:
         repoURL: https://github.com/purefield/multi-cloud-demo.git
         targetRevision: argocd
-        path: tomcat-demo
+        path: multi-cloud-argo/app/tomcat-demo
       destination:
         server: https://kubernetes.default.svc
         namespace: tomcat-demo

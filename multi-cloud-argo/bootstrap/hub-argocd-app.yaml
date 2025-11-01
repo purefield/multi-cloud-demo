@@ -9,7 +9,7 @@ spec:
     namespace: openshift-operators
   project: default
   source:
-    repoURL: https://github.com/purefield/multi-cloud-demo/
+    repoURL: https://github.com/purefield/multi-cloud-demo.git
     targetRevision: argocd
     path: multi-cloud-argo/bootstrap/operator
   syncPolicy:
