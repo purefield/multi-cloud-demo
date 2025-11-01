@@ -1,0 +1,35 @@
+apiVersion: argoproj.io/v1alpha1
+kind: ApplicationSet
+metadata:
+  name: haproxy-multicloud
+  namespace: openshift-gitops
+spec:
+  generators:
+  - clusterDecisionResource:
+      labelSelector:
+        matchLabels:
+          cluster.open-cluster-management.io/placement: multicloud-placement
+  template:
+    metadata:
+      name: '{{name}}-haproxy'
+      annotations:
+        apps.open-cluster-management.io/ocm-managed-cluster: '{{name}}'
+        apps.open-cluster-management.io/ocm-managed-cluster-app-namespace: openshift-gitops
+        argocd.argoproj.io/skip-reconcile: "true"
+      labels:
+        apps.open-cluster-management.io/pull-to-ocm-managed-cluster: "true"
+    spec:
+      project: default
+      source:
+        repoURL: https://github.com/purefield/multi-cloud-demo.git
+        targetRevision: argocd
+        path: haproxy
+      destination:
+        server: https://kubernetes.default.svc
+        namespace: haproxy-demo
+      syncPolicy:
+        automated:
+          prune: true
+          selfHeal: true
+        syncOptions:
+        - CreateNamespace=true

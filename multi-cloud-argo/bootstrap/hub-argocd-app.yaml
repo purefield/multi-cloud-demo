@@ -1,0 +1,20 @@
+apiVersion: argoproj.io/v1alpha1
+kind: Application
+metadata:
+  name: hub-argocd-install
+  namespace: openshift-gitops
+spec:
+  destination:
+    server: https://kubernetes.default.svc
+    namespace: openshift-operators
+  project: default
+  source:
+    repoURL: https://github.com/purefield/multi-cloud-demo/
+    targetRevision: argocd
+    path: multi-cloud-argo/bootstrap/operator
+  syncPolicy:
+    automated:
+      prune: true
+      selfHeal: true
+    syncOptions:
+    - CreateNamespace=true
